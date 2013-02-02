@@ -1,5 +1,9 @@
 *.gem
 *.rbc
+<<<<<<< HEAD
+=======
+Gemfile.lock
+>>>>>>> d63c31673acdeec0c776db6fc0cb787ff73a0d7a
 .bundle
 .config
 coverage
