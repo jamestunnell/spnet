@@ -1,4 +1,4 @@
 require 'rspec'
-require 'sigproc'
+require 'spnetwork'
 
-include Sigproc
+include SPNetwork

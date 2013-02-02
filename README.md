@@ -2,10 +2,10 @@
 spnetwork
 =========
 
-Infrastructure for creating and connecting signal processing blocks.
+Infrastructure for forming signal processing networks.
 =======
-sigproc
+spnetwork
 =======
 
-Signal processing basics, including a I/O port scheme to control data flow
+Infrastructure for forming signal processing networks.
 >>>>>>> d63c31673acdeec0c776db6fc0cb787ff73a0d7a
