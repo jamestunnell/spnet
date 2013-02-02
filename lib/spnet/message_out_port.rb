@@ -1,7 +1,7 @@
 require 'set'
 
-module SPNetwork
-class SignalOutPort
+module SPNet
+class MessageOutPort
   include HashMake
   
   ARG_SPECS = [
@@ -11,25 +11,27 @@ class SignalOutPort
   attr_reader :name, :links
   
   def initialize args = {}
-    hash_make SignalOutPort::ARG_SPECS, args
+    hash_make MessageOutPort::ARG_SPECS, args
     @links = Set.new
   end
   
-  def send_values values
+  def send_message message
+    rvs = []
     @links.each do |link|
-      link.enqueue_values values
+      rvs.push link.recv_message message
     end
+    return rvs
   end
   
   def add_link link
-    raise ArgumentError, "link #{link} is not a SignalInPort" unless link.is_a?(SignalInPort)
-    raise ArgumentError, "link #{link} is already linked to a SignalOutPort" if link.link
+    raise ArgumentError, "link #{link} is not a MessageInPort" unless link.is_a?(MessageInPort)
+    raise ArgumentError, "link #{link} is already linked to a MessageInPort" if link.link
     @links.add link
     link.set_link self
   end
   
   def remove_link link
-    raise ArgumentError, "link #{link} is not a SignalInPort" unless link.is_a?(SignalInPort)
+    raise ArgumentError, "link #{link} is not a MessageInPort" unless link.is_a?(MessageInPort)
     raise ArgumentError, "@links does not include link #{link}" unless @links.include? link
     @links.delete link
     link.clear_link

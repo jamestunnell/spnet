@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 
-require File.expand_path('../lib/spnetwork/version', __FILE__)
+require File.expand_path('../lib/spnet/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.name          = "spnetwork"
-  gem.version       = SPNetwork::VERSION
+  gem.name          = "spnet"
+  gem.version       = SPNet::VERSION
   gem.summary       = %q{Provide infrastructure for forming processing networks.}
   gem.description   = <<DESCRIPTION
 Provide infrastructure for forming processing networks.
@@ -12,7 +12,7 @@ DESCRIPTION
   gem.license       = "MIT"
   gem.authors       = ["James Tunnell"]
   gem.email         = "jamestunnell@lavabit.com"
-  gem.homepage      = "https://rubygems.org/gems/spnetwork"
+  gem.homepage      = "https://rubygems.org/gems/spnet"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

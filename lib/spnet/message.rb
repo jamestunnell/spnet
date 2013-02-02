@@ -1,4 +1,4 @@
-module SPNetwork
+module SPNet
 class Message
   
   include HashMake

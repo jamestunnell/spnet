@@ -1,14 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe SPNetwork::SignalOutPort do
+describe SPNet::SignalOutPort do
   before :each do
-    @out_port = SPNetwork::SignalOutPort.new
-    @in_port = SPNetwork::SignalInPort.new
+    @out_port = SPNet::SignalOutPort.new
+    @in_port = SPNet::SignalInPort.new
   end
   
   describe '.new' do
     it 'should have no links' do
-      @out_port = SPNetwork::SignalOutPort.new
+      @out_port = SPNet::SignalOutPort.new
       @out_port.links.should be_empty
     end    
   end
@@ -31,7 +31,7 @@ describe SPNetwork::SignalOutPort do
     end
     
     it 'should raise ArgumentError if port is not input port' do
-      out_port2 = SPNetwork::SignalOutPort.new
+      out_port2 = SPNet::SignalOutPort.new
       lambda { @out_port.add_link(out_port2) }.should raise_error(ArgumentError)
     end
   end
@@ -57,9 +57,9 @@ describe SPNetwork::SignalOutPort do
 
     context 'several linked input ports' do
       it 'should enqueue the values on each linked input port' do
-        in_port1 = SPNetwork::SignalInPort.new
-        in_port2 = SPNetwork::SignalInPort.new(:name => 'def')
-        in_port3 = SPNetwork::SignalInPort.new(:name => 'ghi')
+        in_port1 = SPNet::SignalInPort.new
+        in_port2 = SPNet::SignalInPort.new(:name => 'def')
+        in_port3 = SPNet::SignalInPort.new(:name => 'ghi')
         
         @out_port.add_link in_port1
         @out_port.add_link in_port2

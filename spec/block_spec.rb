@@ -1,10 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe SPNetwork::Block do
+describe SPNet::Block do
   context '.new' do
     context 'no I/O ports given' do
       before :all do
-        @block = SPNetwork::Block.new
+        @block = SPNet::Block.new
       end
       
       it 'should have no input ports' do
@@ -18,9 +18,9 @@ describe SPNetwork::Block do
     
     context '1 signal in and 1 signal out port given' do
       before :all do
-        @block = SPNetwork::Block.new(
-          :signal_in_ports => [SPNetwork::SignalInPort.new(:name => "IN")],
-          :signal_out_ports => [SPNetwork::SignalOutPort.new(:name => "OUT")],
+        @block = SPNet::Block.new(
+          :signal_in_ports => [SPNet::SignalInPort.new(:name => "IN")],
+          :signal_out_ports => [SPNet::SignalOutPort.new(:name => "OUT")],
         )
       end
       

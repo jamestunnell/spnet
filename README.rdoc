@@ -1,7 +1,7 @@
-= spnetwork
+= spnet
 
-* {Homepage}[https://rubygems.org/gems/spnetwork]
-* {Documentation}[http://rubydoc.info/gems/spnetwork/frames]
+* {Homepage}[https://rubygems.org/gems/spnet]
+* {Documentation}[http://rubydoc.info/gems/spnet/frames]
 * {Email}[mailto:jamestunnell at lavabit.com]
 
 == Description
@@ -12,13 +12,13 @@ TODO: Description
 
 == Examples
 
-  require 'spnetwork'
+  require 'spnet'
 
 == Requirements
 
 == Install
 
-  $ gem install spnetwork
+  $ gem install spnet
 
 == Copyright
 

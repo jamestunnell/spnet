@@ -1,5 +1,5 @@
 require 'pry'
-module SPNetwork
+module SPNet
 class Block
   include HashMake
   

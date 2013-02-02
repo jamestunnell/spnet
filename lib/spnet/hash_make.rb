@@ -1,4 +1,4 @@
-module SPNetwork
+module SPNet
 
 class HashedArg
   DEFAULT_ARGS = {

@@ -1,4 +1,4 @@
 require 'rspec'
-require 'spnetwork'
+require 'spnet'
 
-include SPNetwork
+include SPNet

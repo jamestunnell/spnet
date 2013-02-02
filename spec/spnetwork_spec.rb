@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'spnetwork'
+require 'spnet'
 
-describe SPNetwork do
+describe SPNet do
   it "should have a VERSION constant" do
     subject.const_get('VERSION').should_not be_empty
   end

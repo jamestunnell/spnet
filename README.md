@@ -1,10 +1,10 @@
 <<<<<<< HEAD
-spnetwork
+spnet
 =========
 
 Infrastructure for forming signal processing networks.
 =======
-spnetwork
+spnet
 =======
 
 Infrastructure for forming signal processing networks.
