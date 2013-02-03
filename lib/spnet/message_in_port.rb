@@ -1,13 +1,15 @@
+require 'hashmake'
+
 module SPNet
 class MessageInPort
-  include HashMake
+  include Hashmake::HashMakeable
   
   DEFAULT_VALIDATOR = ->(a){ true }
   
   ARG_SPECS = [
-    HashedArg.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
-    HashedArg.new(:reqd => true, :key => :processor, :type => Proc),
-    HashedArg.new(:reqd => true, :key => :message_type, :type => Symbol, :validator => ->(a){ Message::TYPES.include?(a) })
+    Hashmake::HashedArg.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
+    Hashmake::HashedArg.new(:reqd => true, :key => :processor, :type => Proc),
+    Hashmake::HashedArg.new(:reqd => true, :key => :message_type, :type => Symbol, :validator => ->(a){ Message::TYPES.include?(a) })
   ]
   
   attr_reader :name, :link

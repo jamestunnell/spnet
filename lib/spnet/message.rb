@@ -1,7 +1,9 @@
+require 'hashmake'
+
 module SPNet
 class Message
   
-  include HashMake
+  include Hashmake::HashMakeable
   
   CONTROL = :messageTypeControl
   COMMAND = :messageTypeCommand
@@ -9,8 +11,8 @@ class Message
   TYPES = [ CONTROL, COMMAND ]
   
   HASHED_ARGS_SPECS = [
-    HashedArg.new(:reqd => true, :key => :type, :type => Symbol, :validator => ->(a){ TYPES.include?(a) } ),
-    HashedArg.new(:reqd => false, :key => :data, :type => Object, :default => nil),
+    Hashmake::HashedArg.new(:reqd => true, :key => :type, :type => Symbol, :validator => ->(a){ TYPES.include?(a) } ),
+    Hashmake::HashedArg.new(:reqd => false, :key => :data, :type => Object, :default => nil),
   ]
   
   attr_accessor :data

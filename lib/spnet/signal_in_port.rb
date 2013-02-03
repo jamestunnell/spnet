@@ -1,12 +1,14 @@
+require 'hashmake'
+
 module SPNet
 class SignalInPort
-  include HashMake
+  include Hashmake::HashMakeable
   
   DEFAULT_LIMITS = (-Float::MAX..Float::MAX)
   
   ARG_SPECS = [
-    HashedArg.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
-    HashedArg.new(:reqd => false, :key => :limits, :type => Range, :default => DEFAULT_LIMITS)
+    Hashmake::HashedArg.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
+    Hashmake::HashedArg.new(:reqd => false, :key => :limits, :type => Range, :default => DEFAULT_LIMITS)
   ]
   
   attr_reader :name, :limits, :link, :queue

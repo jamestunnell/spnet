@@ -1,11 +1,12 @@
 require 'set'
+require 'hashmake'
 
 module SPNet
 class MessageOutPort
-  include HashMake
+  include Hashmake::HashMakeable
   
   ARG_SPECS = [
-    HashedArg.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
+    Hashmake::HashedArg.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
   ]
   
   attr_reader :name, :links

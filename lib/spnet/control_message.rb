@@ -1,7 +1,9 @@
+require 'hashmake'
+
 module SPNet
 class ControlMessage < Message
 
-  include HashMake
+  include Hashmake::HashMakeable
   
   GET = :controlMessageSubtypeGet
   SET = :controlMessageSubtypeSet
@@ -12,7 +14,7 @@ class ControlMessage < Message
   ]
   
   HASHED_ARGS_SPECS = [
-    HashedArg.new(:reqd => true, :key => :subtype, :type => Symbol, :validator => ->(a){ SUBTYPES.include?(a) } )
+    Hashmake::HashedArg.new(:reqd => true, :key => :subtype, :type => Symbol, :validator => ->(a){ SUBTYPES.include?(a) } )
   ]
   
   attr_reader :subtype

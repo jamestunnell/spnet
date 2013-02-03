@@ -1,19 +1,19 @@
-require 'pry'
+
 module SPNet
 class Block
-  include HashMake
+  include Hashmake::HashMakeable
   
   attr_reader :name, :signal_in_ports, :signal_out_ports, :message_in_ports, :message_out_ports
   
   DO_NOTHING = ->(){}
   
   HASHED_ARG_SPECS = [
-    HashedArg.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
-    HashedArg.new(:reqd => false, :key => :algorithm, :type => Proc, :default => DO_NOTHING),
-    HashedArg.new(:reqd => false, :key => :signal_in_ports, :type => SignalInPort, :array => true, :default => ->(){ Array.new } ),
-    HashedArg.new(:reqd => false, :key => :signal_out_ports, :type => SignalOutPort, :array => true, :default => ->(){ Array.new }),
-    HashedArg.new(:reqd => false, :key => :message_in_ports, :type => MessageInPort, :array => true, :default => ->(){ Array.new }),
-    HashedArg.new(:reqd => false, :key => :message_out_ports, :type => MessageOutPort, :array => true, :default => ->(){ Array.new })
+    Hashmake::HashedArg.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
+    Hashmake::HashedArg.new(:reqd => false, :key => :algorithm, :type => Proc, :default => DO_NOTHING),
+    Hashmake::HashedArg.new(:reqd => false, :key => :signal_in_ports, :type => SignalInPort, :array => true, :default => ->(){ Array.new } ),
+    Hashmake::HashedArg.new(:reqd => false, :key => :signal_out_ports, :type => SignalOutPort, :array => true, :default => ->(){ Array.new }),
+    Hashmake::HashedArg.new(:reqd => false, :key => :message_in_ports, :type => MessageInPort, :array => true, :default => ->(){ Array.new }),
+    Hashmake::HashedArg.new(:reqd => false, :key => :message_out_ports, :type => MessageOutPort, :array => true, :default => ->(){ Array.new })
   ]
   
   def initialize args = {}
