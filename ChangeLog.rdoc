@@ -2,3 +2,13 @@
 
 * Initial release:
 
+=== 0.1.1 / 2013-02-03
+
+Updated to use hashmake 0.1.1 gem.
+
+=== 0.1.2 / 2013-02-04
+
+* Update project files, including:
+** Removing README.md so that YARD can run without needing the redcarpet gem.
+** Removing unnecessary lines from .gitignore
+** Remove specific hashmake version in hashmake.gemspec

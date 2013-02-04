@@ -19,7 +19,7 @@ DESCRIPTION
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']
 
-  gem.add_dependency 'hashmake', '~> 0.1.1'
+  gem.add_dependency 'hashmake'
 
   gem.add_development_dependency 'bundler', '~> 1.0'
   gem.add_development_dependency 'rake', '~> 0.8'
