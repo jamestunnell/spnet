@@ -14,7 +14,7 @@ class ControlMessage < Message
   ]
   
   HASHED_ARGS_SPECS = [
-    Hashmake::HashedArg.new(:reqd => true, :key => :subtype, :type => Symbol, :validator => ->(a){ SUBTYPES.include?(a) } )
+    Hashmake::ArgSpec.new(:reqd => true, :key => :subtype, :type => Symbol, :validator => ->(a){ SUBTYPES.include?(a) } )
   ]
   
   attr_reader :subtype

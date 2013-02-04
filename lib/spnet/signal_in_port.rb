@@ -7,8 +7,8 @@ class SignalInPort
   DEFAULT_LIMITS = (-Float::MAX..Float::MAX)
   
   ARG_SPECS = [
-    Hashmake::HashedArg.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
-    Hashmake::HashedArg.new(:reqd => false, :key => :limits, :type => Range, :default => DEFAULT_LIMITS)
+    Hashmake::ArgSpec.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
+    Hashmake::ArgSpec.new(:reqd => false, :key => :limits, :type => Range, :default => DEFAULT_LIMITS)
   ]
   
   attr_reader :name, :limits, :link, :queue

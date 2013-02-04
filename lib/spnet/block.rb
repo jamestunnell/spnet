@@ -8,12 +8,12 @@ class Block
   DO_NOTHING = ->(){}
   
   HASHED_ARG_SPECS = [
-    Hashmake::HashedArg.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
-    Hashmake::HashedArg.new(:reqd => false, :key => :algorithm, :type => Proc, :default => DO_NOTHING),
-    Hashmake::HashedArg.new(:reqd => false, :key => :signal_in_ports, :type => SignalInPort, :array => true, :default => ->(){ Array.new } ),
-    Hashmake::HashedArg.new(:reqd => false, :key => :signal_out_ports, :type => SignalOutPort, :array => true, :default => ->(){ Array.new }),
-    Hashmake::HashedArg.new(:reqd => false, :key => :message_in_ports, :type => MessageInPort, :array => true, :default => ->(){ Array.new }),
-    Hashmake::HashedArg.new(:reqd => false, :key => :message_out_ports, :type => MessageOutPort, :array => true, :default => ->(){ Array.new })
+    Hashmake::ArgSpec.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
+    Hashmake::ArgSpec.new(:reqd => false, :key => :algorithm, :type => Proc, :default => DO_NOTHING),
+    Hashmake::ArgSpec.new(:reqd => false, :key => :signal_in_ports, :type => SignalInPort, :array => true, :default => ->(){ Array.new } ),
+    Hashmake::ArgSpec.new(:reqd => false, :key => :signal_out_ports, :type => SignalOutPort, :array => true, :default => ->(){ Array.new }),
+    Hashmake::ArgSpec.new(:reqd => false, :key => :message_in_ports, :type => MessageInPort, :array => true, :default => ->(){ Array.new }),
+    Hashmake::ArgSpec.new(:reqd => false, :key => :message_out_ports, :type => MessageOutPort, :array => true, :default => ->(){ Array.new })
   ]
   
   def initialize args = {}

@@ -11,8 +11,8 @@ class Message
   TYPES = [ CONTROL, COMMAND ]
   
   HASHED_ARGS_SPECS = [
-    Hashmake::HashedArg.new(:reqd => true, :key => :type, :type => Symbol, :validator => ->(a){ TYPES.include?(a) } ),
-    Hashmake::HashedArg.new(:reqd => false, :key => :data, :type => Object, :default => nil),
+    Hashmake::ArgSpec.new(:reqd => true, :key => :type, :type => Symbol, :validator => ->(a){ TYPES.include?(a) } ),
+    Hashmake::ArgSpec.new(:reqd => false, :key => :data, :type => Object, :default => nil),
   ]
   
   attr_accessor :data

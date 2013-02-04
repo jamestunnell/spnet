@@ -6,7 +6,7 @@ class MessageOutPort
   include Hashmake::HashMakeable
   
   ARG_SPECS = [
-    Hashmake::HashedArg.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
+    Hashmake::ArgSpec.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
   ]
   
   attr_reader :name, :links
