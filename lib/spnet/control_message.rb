@@ -5,12 +5,12 @@ class ControlMessage < Message
 
   include Hashmake::HashMakeable
   
-  GET = :controlMessageSubtypeGet
-  SET = :controlMessageSubtypeSet
+  GET_VALUE = :controlMessageSubtypeGetValue
+  SET_VALUE = :controlMessageSubtypeSetValue
   
   SUBTYPES = [
-    GET,
-    SET
+    GET_VALUE,
+    SET_VALUE
   ]
   
   HASHED_ARGS_SPECS = [
@@ -29,9 +29,9 @@ class ControlMessage < Message
     handler = lambda do |message|
       raise ArgumentError, "message is not a ControlMessage" unless message.is_a?(ControlMessage)
       
-      if message.subtype == GET
+      if message.subtype == GET_VALUE
         return get_handler.call message
-      elsif message.subtype == SET
+      elsif message.subtype == SET_VALUE
         return set_handler.call message
       else
         raise ArgumentError, "message subtype #{message.subtype} is not valid"
@@ -42,11 +42,11 @@ class ControlMessage < Message
   end
   
   def self.make_set_message data
-    ControlMessage.new :subtype => SET, :data => data
+    ControlMessage.new :subtype => SET_VALUE, :data => data
   end
 
   def self.make_get_message
-    ControlMessage.new :subtype => GET
+    ControlMessage.new :subtype => GET_VALUE
   end
 end
 end

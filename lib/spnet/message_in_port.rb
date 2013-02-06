@@ -12,7 +12,7 @@ class MessageInPort
     Hashmake::ArgSpec.new(:reqd => true, :key => :message_type, :type => Symbol, :validator => ->(a){ Message::TYPES.include?(a) })
   ]
   
-  attr_reader :name, :link
+  attr_reader :name, :link, :message_type
   
   def initialize args
     hash_make MessageInPort::ARG_SPECS, args

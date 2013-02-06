@@ -9,11 +9,11 @@ describe SPNet::MessageOutPort do
   end
 
   before :each do
-    processor = lambda do |message|
+    @processor = lambda do |message|
       return message
     end
-    @in_port = SPNet::MessageInPort.new :processor => processor, :message_type => SPNet::Message::CONTROL
-    @out_port = SPNet::MessageOutPort.new
+    @in_port = SPNet::MessageInPort.new :processor => @processor, :message_type => SPNet::Message::CONTROL
+    @out_port = SPNet::MessageOutPort.new :message_type => SPNet::Message::CONTROL
   end
 
   describe '#add_link' do
@@ -34,8 +34,13 @@ describe SPNet::MessageOutPort do
     end
     
     it 'should raise ArgumentError if port is not input port' do
-      @out_port2 = SPNet::MessageOutPort.new
+      @out_port2 = SPNet::MessageOutPort.new :message_type => SPNet::Message::CONTROL
       lambda { @out_port.add_link(@out_port2) }.should raise_error(ArgumentError)
+    end
+
+    it 'should raise ArgumentError if message_type of input port does not match that of output port' do
+      @in_port2 = SPNet::MessageInPort.new  :processor => @processor,:message_type => SPNet::Message::COMMAND
+      lambda { @out_port.add_link(@in_port2) }.should raise_error(ArgumentError)
     end
   end
 
