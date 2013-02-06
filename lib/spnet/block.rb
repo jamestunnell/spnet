@@ -10,8 +10,8 @@ class Block
   HASHED_ARG_SPECS = [
     Hashmake::ArgSpec.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
     Hashmake::ArgSpec.new(:reqd => false, :key => :algorithm, :type => Proc, :default => DO_NOTHING),
-    Hashmake::ArgSpec.new(:reqd => false, :key => :in_ports, :type => InPort, :array => true, :default => ->(){ Array.new } ),
-    Hashmake::ArgSpec.new(:reqd => false, :key => :out_ports, :type => OutPort, :array => true, :default => ->(){ Array.new }),
+    Hashmake::ArgSpec.new(:reqd => false, :key => :in_ports, :type => InPort, :container => Hashmake::ArgSpec::CONTAINER_ARRAY, :default => ->(){ Array.new } ),
+    Hashmake::ArgSpec.new(:reqd => false, :key => :out_ports, :type => OutPort, :container => Hashmake::ArgSpec::CONTAINER_ARRAY, :default => ->(){ Array.new }),
   ]
   
   def initialize args = {}

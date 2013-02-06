@@ -19,3 +19,7 @@ Replace messages and message ports with more specific ports, like value ports an
 Each kind of port can only connect to its opposite (e.g. SignaInPort to SignalOutPort).
 Instead of different messages for different actions, each kind of port will just have specific methods (e.g. SignalInPort#enqueue_values or ValueInPort#set_value).
 In Block, contain all InPort objects in @in_ports, and all OutPort objects in @out_ports.
+
+=== 0.1.4 / 2013-02-06
+
+CommandInPort only requires :command_map instead of :list_commands_handler and :exec_command_handler. The command map is just a hash that maps command names to their execution handlers.

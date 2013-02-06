@@ -6,8 +6,7 @@ class CommandInPort < InPort
   include Hashmake::HashMakeable
 
   ARG_SPECS = [
-    Hashmake::ArgSpec.new(:key => :list_commands_handler, :reqd => true, :type => Proc),
-    Hashmake::ArgSpec.new(:key => :exec_command_handler, :reqd => true, :type => Proc)
+    Hashmake::ArgSpec.new(:key => :command_map, :reqd => true, :type => Proc, :container => Hashmake::ArgSpec::CONTAINER_HASH),
   ]
 
   def initialize hashed_args
@@ -17,11 +16,11 @@ class CommandInPort < InPort
   end
   
   def list_commands
-    @list_commands_handler.call
+    @command_map.keys
   end
   
   def exec_command command, data
-    @exec_command_handler.call command, data
+    @command_map[command].call data
   end  
 end
 end
