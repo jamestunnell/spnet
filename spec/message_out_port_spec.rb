@@ -1,19 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe SPNet::MessageOutPort do
-  before :all do
-    processor = lambda do |message|
-      return message
-    end
-    @in_port = SPNet::MessageInPort.new :processor => processor, :message_type => SPNet::Message::CONTROL
-  end
-
   before :each do
     @processor = lambda do |message|
-      return message
+      return message.value
     end
-    @in_port = SPNet::MessageInPort.new :processor => @processor, :message_type => SPNet::Message::CONTROL
-    @out_port = SPNet::MessageOutPort.new :message_type => SPNet::Message::CONTROL
+    @in_port = SPNet::MessageInPort.new :processor => @processor, :message_type => SPNet::Message::VALUE
+    @out_port = SPNet::MessageOutPort.new :message_type => SPNet::Message::VALUE
   end
 
   describe '#add_link' do
@@ -34,7 +27,7 @@ describe SPNet::MessageOutPort do
     end
     
     it 'should raise ArgumentError if port is not input port' do
-      @out_port2 = SPNet::MessageOutPort.new :message_type => SPNet::Message::CONTROL
+      @out_port2 = SPNet::MessageOutPort.new :message_type => SPNet::Message::VALUE
       lambda { @out_port.add_link(@out_port2) }.should raise_error(ArgumentError)
     end
 
@@ -55,8 +48,8 @@ describe SPNet::MessageOutPort do
   describe '#send_message' do
     it 'should pass the given message via recv_message to the processing callback' do
       @out_port.add_link @in_port
-      rv = @out_port.send_message SPNet::ControlMessage.make_set_message(5)
-      rv.first.data.should eq(5)
+      rv = @out_port.send_message SPNet::SetValueMessage.new(5)
+      rv.first.should eq(5)
     end
   end
 end
