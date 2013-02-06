@@ -3,17 +3,15 @@ module SPNet
 class Block
   include Hashmake::HashMakeable
   
-  attr_reader :name, :signal_in_ports, :signal_out_ports, :message_in_ports, :message_out_ports
+  attr_reader :name, :in_ports, :out_ports
   
   DO_NOTHING = ->(){}
   
   HASHED_ARG_SPECS = [
     Hashmake::ArgSpec.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
     Hashmake::ArgSpec.new(:reqd => false, :key => :algorithm, :type => Proc, :default => DO_NOTHING),
-    Hashmake::ArgSpec.new(:reqd => false, :key => :signal_in_ports, :type => SignalInPort, :array => true, :default => ->(){ Array.new } ),
-    Hashmake::ArgSpec.new(:reqd => false, :key => :signal_out_ports, :type => SignalOutPort, :array => true, :default => ->(){ Array.new }),
-    Hashmake::ArgSpec.new(:reqd => false, :key => :message_in_ports, :type => MessageInPort, :array => true, :default => ->(){ Array.new }),
-    Hashmake::ArgSpec.new(:reqd => false, :key => :message_out_ports, :type => MessageOutPort, :array => true, :default => ->(){ Array.new })
+    Hashmake::ArgSpec.new(:reqd => false, :key => :in_ports, :type => InPort, :array => true, :default => ->(){ Array.new } ),
+    Hashmake::ArgSpec.new(:reqd => false, :key => :out_ports, :type => OutPort, :array => true, :default => ->(){ Array.new }),
   ]
   
   def initialize args = {}
@@ -21,7 +19,7 @@ class Block
   end
   
   def find_ports name, ignore_case = true
-    matches = (@signal_in_ports + @signal_out_ports + @message_in_ports + @message_out_ports).select do |port|
+    matches = (@in_ports + @out_ports).select do |port|
       if ignore_case
         port.name.casecmp(name) == 0
       else

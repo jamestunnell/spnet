@@ -20,6 +20,7 @@ DESCRIPTION
   gem.require_paths = ['lib']
 
   gem.add_dependency 'hashmake'
+  gem.add_dependency 'spcore'
 
   gem.add_development_dependency 'bundler', '~> 1.0'
   gem.add_development_dependency 'rake', '~> 0.8'

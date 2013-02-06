@@ -8,30 +8,30 @@ describe SPNet::Block do
       end
       
       it 'should have no input ports' do
-        @block.signal_in_ports.should be_empty
+        @block.in_ports.should be_empty
       end
 
       it 'should have no output ports' do
-        @block.signal_out_ports.should be_empty
+        @block.out_ports.should be_empty
       end
     end
     
-    context '1 signal in and 1 signal out port given' do
+    context '1 in and 1 out port given' do
       before :all do
         @block = SPNet::Block.new(
-          :signal_in_ports => [SPNet::SignalInPort.new(:name => "IN")],
-          :signal_out_ports => [SPNet::SignalOutPort.new(:name => "OUT")],
+          :in_ports => [SPNet::SignalInPort.new(:name => "IN")],
+          :out_ports => [SPNet::SignalOutPort.new(:name => "OUT")],
         )
       end
       
-      it 'should have no input ports' do
-        @block.signal_in_ports.count.should be 1
-        @block.signal_in_ports.first.name.should eq("IN")
+      it 'should have 1 input port' do
+        @block.in_ports.count.should be 1
+        @block.in_ports.first.name.should eq("IN")
       end
 
-      it 'should have no output ports' do
-        @block.signal_out_ports.count.should be 1
-        @block.signal_out_ports.first.name.should eq("OUT")
+      it 'should have 1 output port' do
+        @block.out_ports.count.should be 1
+        @block.out_ports.first.name.should eq("OUT")
       end      
     end
   end
