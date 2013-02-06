@@ -6,9 +6,15 @@
 
 == Description
 
-TODO: Description
+Provide infrastructure for forming processing networks.
 
 == Features
+
+Signal ports: Used to pass a stream of data through a block.
+
+Value ports: Used to get/set a value within a block (usually to control a parameter), with optional range limiting.
+
+Command ports: Used to trigger the execution a command within a block, with optional data as well.
 
 == Examples
 

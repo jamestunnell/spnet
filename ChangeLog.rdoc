@@ -12,3 +12,10 @@ Updated to use hashmake 0.1.1 gem.
 ** Removing README.md so that YARD can run without needing the redcarpet gem.
 ** Removing unnecessary lines from .gitignore
 ** Remove specific hashmake version in hashmake.gemspec
+
+=== 0.1.3 / 2013-02-06
+
+Replace messages and message ports with more specific ports, like value ports and command ports, and use a base InPort and OutPort to share code for linking ports.
+Each kind of port can only connect to its opposite (e.g. SignaInPort to SignalOutPort).
+Instead of different messages for different actions, each kind of port will just have specific methods (e.g. SignalInPort#enqueue_values or ValueInPort#set_value).
+In Block, contain all InPort objects in @in_ports, and all OutPort objects in @out_ports.
