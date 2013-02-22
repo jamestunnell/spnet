@@ -5,15 +5,17 @@ class InPort
   
   include Hashmake::HashMakeable
     
-  ARG_SPECS = [
-    Hashmake::ArgSpec.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
-    Hashmake::ArgSpec.new(:reqd => true, :key => :matching_port_class, :type => Class),
-  ]
+  ARG_SPECS = {
+    :name => arg_spec(:reqd => false, :type => String, :default => "UNNAMED"),
+    :matching_port_class => arg_spec(:reqd => true, :type => Class),
+  }
 
   attr_reader :name, :link
   
   def initialize args
-    hash_make InPort::ARG_SPECS, args
+    @arg_specs = InPort::ARG_SPECS
+    hash_make args
+    
     @link = nil
   end
   

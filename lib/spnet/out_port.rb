@@ -6,15 +6,17 @@ class OutPort
 
   include Hashmake::HashMakeable
   
-  ARG_SPECS = [
-    Hashmake::ArgSpec.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
-    Hashmake::ArgSpec.new(:reqd => true, :key => :matching_port_class, :type => Class),
-  ]
+  ARG_SPECS = {
+    :name => arg_spec(:reqd => false, :type => String, :default => "UNNAMED"),
+    :matching_port_class => arg_spec(:reqd => true, :type => Class),
+  }
 
   attr_reader :name, :links
 
   def initialize hashed_args = {}
-    hash_make OutPort::ARG_SPECS, hashed_args
+    @arg_specs = OutPort::ARG_SPECS
+    hash_make hashed_args
+    
     @links = Set.new
   end
   

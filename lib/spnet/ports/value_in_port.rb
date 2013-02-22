@@ -5,13 +5,15 @@ class ValueInPort < InPort
   
   include Hashmake::HashMakeable
 
-  ARG_SPECS = [
-    Hashmake::ArgSpec.new(:key => :get_value_handler, :reqd => true, :type => Proc),
-    Hashmake::ArgSpec.new(:key => :set_value_handler, :reqd => true, :type => Proc)
-  ]
+  ARG_SPECS = {
+    :get_value_handler => arg_spec(:reqd => true, :type => Proc),
+    :set_value_handler => arg_spec(:reqd => true, :type => Proc)
+  }
 
   def initialize hashed_args = {}
-    hash_make(ValueInPort::ARG_SPECS, hashed_args)
+    @arg_specs = ValueInPort::ARG_SPECS
+    hash_make hashed_args
+    
     hashed_args.merge!(:matching_port_class => ValueOutPort)
     super(hashed_args)
   end

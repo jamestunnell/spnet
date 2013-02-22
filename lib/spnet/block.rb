@@ -7,15 +7,16 @@ class Block
   
   DO_NOTHING = ->(){}
   
-  HASHED_ARG_SPECS = [
-    Hashmake::ArgSpec.new(:reqd => false, :key => :name, :type => String, :default => "UNNAMED"),
-    Hashmake::ArgSpec.new(:reqd => false, :key => :algorithm, :type => Proc, :default => DO_NOTHING),
-    Hashmake::ArgSpec.new(:reqd => false, :key => :in_ports, :type => InPort, :container => Hashmake::ArgSpec::CONTAINER_ARRAY, :default => ->(){ Array.new } ),
-    Hashmake::ArgSpec.new(:reqd => false, :key => :out_ports, :type => OutPort, :container => Hashmake::ArgSpec::CONTAINER_ARRAY, :default => ->(){ Array.new }),
-  ]
+  HASHED_ARG_SPECS = {
+    :name => arg_spec(:reqd => false, :type => String, :default => "UNNAMED"),
+    :algorithm => arg_spec(:reqd => false, :type => Proc, :default => DO_NOTHING),
+    :in_ports => arg_spec_array(:reqd => false, :type => InPort),
+    :out_ports => arg_spec_array(:reqd => false, :type => OutPort),
+  }
   
   def initialize args = {}
-    hash_make Block::HASHED_ARG_SPECS, args
+    @arg_specs = Block::HASHED_ARG_SPECS
+    hash_make args
   end
   
   def find_ports name, ignore_case = true
