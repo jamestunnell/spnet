@@ -3,25 +3,22 @@ require 'set'
 module SPNet
 class ValueOutPort < OutPort
 
-  def initialize hashed_args = {}
-    hashed_args.merge!(:matching_port_class => ValueInPort)
-    super(hashed_args)
+  def initialize
+    super(:matching_class => ValueInPort)
   end
   
   def set_value value
-    rvs = []
-    @links.each do |link|
-      rvs.push link.set_value value
+    unless @link.nil?
+      return @link.to.set_value value
     end
-    return rvs
+    return false
   end
 
   def get_value
-    rvs = []
-    @links.each do |link|
-      rvs.push link.get_value
+    unless @link.nil?
+      return @link.to.get_value
     end
-    return rvs
+    return false
   end
 
 end

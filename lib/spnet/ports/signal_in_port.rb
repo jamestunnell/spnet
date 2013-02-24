@@ -1,4 +1,3 @@
-require 'hashmake'
 require 'spcore'
 
 module SPNet
@@ -22,8 +21,7 @@ class SignalInPort < InPort
     @skip_limiting = (@limits == DEFAULT_LIMITS)
     @limiter = SPCore::Limiters.make_range_limiter @limits
 
-    hashed_args.merge!(:matching_port_class => SignalOutPort)
-    super(hashed_args)
+    super(:matching_class => SignalOutPort)
   end
 
   def enqueue_values values

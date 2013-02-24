@@ -1,5 +1,3 @@
-require 'hashmake'
-
 module SPNet
 class ValueInPort < InPort
   
@@ -14,8 +12,7 @@ class ValueInPort < InPort
     @arg_specs = ValueInPort::ARG_SPECS
     hash_make hashed_args
     
-    hashed_args.merge!(:matching_port_class => ValueOutPort)
-    super(hashed_args)
+    super(:matching_class => ValueOutPort)
   end
   
   def set_value value

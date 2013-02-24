@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe SPNet::Block do
   context '.new' do
@@ -19,19 +19,19 @@ describe SPNet::Block do
     context '1 in and 1 out port given' do
       before :all do
         @block = SPNet::Block.new(
-          :in_ports => [SPNet::SignalInPort.new(:name => "IN")],
-          :out_ports => [SPNet::SignalOutPort.new(:name => "OUT")],
+          :in_ports => { "IN" => SPNet::SignalInPort.new },
+          :out_ports => { "OUT" => SPNet::SignalOutPort.new },
         )
       end
       
       it 'should have 1 input port' do
         @block.in_ports.count.should be 1
-        @block.in_ports.first.name.should eq("IN")
+        @block.in_ports.has_key?("IN")
       end
 
       it 'should have 1 output port' do
         @block.out_ports.count.should be 1
-        @block.out_ports.first.name.should eq("OUT")
+        @block.out_ports.has_key?("OUT")
       end      
     end
   end

@@ -1,5 +1,3 @@
-require 'hashmake'
-
 module SPNet
 class CommandInPort < InPort
   
@@ -13,8 +11,7 @@ class CommandInPort < InPort
     @arg_specs = CommandInPort::ARG_SPECS
     hash_make hashed_args
     
-    hashed_args.merge!(:matching_port_class => CommandOutPort)
-    super(hashed_args)
+    super(:matching_class => CommandOutPort)
   end
   
   def list_commands
