@@ -16,5 +16,15 @@ class Link
     raise ArgumentError, "from port class #{@from.class} is not a #{@to.matching_class}" unless @from.is_a?(@to.matching_class)
     raise ArgumentError, "to port class #{@to.class} is not a #{@from.matching_class}" unless @to.is_a?(@from.matching_class)
   end
+  
+  def activate
+    @from.set_link self
+    @to.set_link self
+  end
+  
+  def deactivate
+    @from.clear_link
+    @to.clear_link
+  end
 end
 end

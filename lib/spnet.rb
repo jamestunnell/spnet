@@ -14,3 +14,8 @@ require 'spnet/ports/value_in_port'
 require 'spnet/ports/value_out_port'
 require 'spnet/ports/command_in_port'
 require 'spnet/ports/command_out_port'
+
+require 'spnet/storage/port_locater.rb'
+require 'spnet/storage/link_model.rb'
+require 'spnet/storage/block_model.rb'
+require 'spnet/storage/network_model.rb'

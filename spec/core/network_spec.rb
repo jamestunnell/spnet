@@ -23,13 +23,14 @@ describe SPNet::Network do
     its(:blocks) { should be_empty }
     its(:links) { should be_empty }
     
-    it 'should set links' do
+    it 'should set links when ":activate_links => true" is passed to .new' do
       a = PassThroughBlock.new
       b = PassThroughBlock.new
       link = Link.new(:from => a.out_ports["OUT"], :to => b.in_ports["IN"])
       network = Network.new(
         :blocks => { "A" => a, "B" => b },
-        :links => [ link ]
+        :links => [ link ],
+        :activate_links => true
       )
       a.out_ports["OUT"].link.should eq(link)
       b.in_ports["IN"].link.should eq(link)
