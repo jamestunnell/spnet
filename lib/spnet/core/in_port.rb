@@ -10,9 +10,7 @@ class InPort
   attr_reader :name, :link, :matching_class
   
   def initialize args
-    @arg_specs = InPort::ARG_SPECS
-    hash_make args
-    
+    hash_make InPort::ARG_SPECS, args
     @link = nil
   end
 

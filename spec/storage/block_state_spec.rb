@@ -1,12 +1,16 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-class BlockModelTestBlock < Block
+class BlockStateTestBlock < Block
   attr_reader :value1, :value2
   
   def initialize args = {}
     @value1, @value2 = 0, 0
     
     super(
+      :arg_specs => {},
+      :sample_rate => 1.0,
+      :sample_rate_handler => ->(a){},
+      :algorithm => ->(a){},
       :in_ports => {
         "value1" => ValueInPort.new(
           :get_value_handler => ->(){ @value1 },
@@ -21,11 +25,11 @@ class BlockModelTestBlock < Block
   end
 end
 
-describe SPNet::BlockModel do
+describe SPNet::BlockState do
   describe '.new' do
     it 'should assign block class' do
-      block_model = BlockModel.new :block_class => BlockModelTestBlock
-      block_model.block_class.should eq(BlockModelTestBlock)
+      block_state = BlockState.new :class_sym => :BlockStateTestBlock, :hashed_args => {}
+      block_state.class_sym.should eq(:BlockStateTestBlock)
     end
     
     it 'should assign port settings' do
@@ -33,8 +37,8 @@ describe SPNet::BlockModel do
         "value1" => 0.0,
         "value2" => 1.0,
       }
-      block_model = BlockModel.new :block_class => BlockModelTestBlock, :port_settings => settings
-      block_model.port_settings.should eq(settings)
+      block_state = BlockState.new :class_sym => :BlockStateTestBlock, :hashed_args => {}, :port_settings => settings
+      block_state.port_settings.should eq(settings)
     end
   end
   
@@ -44,13 +48,13 @@ describe SPNet::BlockModel do
         "value1" => 0.1,
         "value2" => 0.9,
       }
-      @block_class = BlockModelTestBlock
-      block_model = BlockModel.new :block_class => @block_class, :port_settings => @settings
-      @block = block_model.make_block 0.0
+      @class_sym = :BlockStateTestBlock
+      block_state = BlockState.new :class_sym => @class_sym, :hashed_args => {}, :port_settings => @settings
+      @block = block_state.make_block
     end
     
     it 'should make a block of the given class type' do
-      @block.class.should eq(@block_class)
+      @block.class.to_s.to_sym.should eq(@class_sym)
     end
 
     it 'should make a block using given port settings' do

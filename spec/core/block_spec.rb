@@ -4,7 +4,7 @@ describe SPNet::Block do
   context '.new' do
     context 'no I/O ports given' do
       before :all do
-        @block = SPNet::Block.new
+        @block = SPNet::Block.new :arg_specs => {}, :sample_rate => 1.0, :sample_rate_handler => ->(a){}, :algorithm => ->(a){}
       end
       
       it 'should have no input ports' do
@@ -19,6 +19,10 @@ describe SPNet::Block do
     context '1 in and 1 out port given' do
       before :all do
         @block = SPNet::Block.new(
+          :arg_specs => {},
+          :sample_rate => 1.0,
+          :sample_rate_handler => ->(a){},
+          :algorithm => ->(a){},
           :in_ports => { "IN" => SPNet::SignalInPort.new },
           :out_ports => { "OUT" => SPNet::SignalOutPort.new },
         )

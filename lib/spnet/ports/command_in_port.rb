@@ -8,9 +8,7 @@ class CommandInPort < InPort
   }
 
   def initialize hashed_args
-    @arg_specs = CommandInPort::ARG_SPECS
-    hash_make hashed_args
-    
+    hash_make CommandInPort::ARG_SPECS, hashed_args
     super(:matching_class => CommandOutPort)
   end
   
@@ -19,6 +17,7 @@ class CommandInPort < InPort
   end
   
   def exec_command command, data
+    raise "Command #{command} not found in command list" unless @command_map.has_key?(command)
     @command_map[command].call data
   end  
 end

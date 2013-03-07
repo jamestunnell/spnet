@@ -10,9 +10,7 @@ class OutPort
   attr_reader :name, :link, :matching_class
   
   def initialize args
-    @arg_specs = OutPort::ARG_SPECS
-    hash_make args
-    
+    hash_make OutPort::ARG_SPECS, args
     @link = nil
   end
 

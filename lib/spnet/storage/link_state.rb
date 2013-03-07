@@ -1,5 +1,5 @@
 module SPNet
-class LinkModel
+class LinkState
   include Hashmake::HashMakeable
   
   ARG_SPECS = {
@@ -10,8 +10,7 @@ class LinkModel
   attr_reader :from, :to
   
   def initialize args
-    @arg_specs = ARG_SPECS
-    hash_make args
+    hash_make ARG_SPECS, args
   end
   
   def make_link blocks

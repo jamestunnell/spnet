@@ -9,9 +9,7 @@ class ValueInPort < InPort
   }
 
   def initialize hashed_args = {}
-    @arg_specs = ValueInPort::ARG_SPECS
-    hash_make hashed_args
-    
+    hash_make ValueInPort::ARG_SPECS, hashed_args
     super(:matching_class => ValueOutPort)
   end
   
