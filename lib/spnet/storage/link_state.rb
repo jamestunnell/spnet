@@ -1,7 +1,12 @@
 module SPNet
+
+# Represent a Link object using only serializeable objects.
+#
+# @author James Tunnell
 class LinkState
   include Hashmake::HashMakeable
-  
+
+  # Define arg specs to use in processing hashed arguments during #initialize.  
   ARG_SPECS = {
     :from => arg_spec(:reqd => true, :type => PortLocater),
     :to => arg_spec(:reqd => true, :type => PortLocater)
@@ -12,7 +17,8 @@ class LinkState
   def initialize args
     hash_make ARG_SPECS, args
   end
-  
+
+  # Make a Link objet from the current LinkState object.  
   def make_link blocks
     raise "from block #{@from.block_name} not found" unless blocks.has_key?(@from.block_name)
     raise "to block #{@to.block_name} not found" unless blocks.has_key?(@to.block_name)

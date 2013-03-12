@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe SPNet::ValueInPort do
+describe SPNet::ParamInPort do
   before :each do
     @value = 0
     
@@ -12,7 +12,7 @@ describe SPNet::ValueInPort do
       return @value
     end
     
-    @port = SPNet::ValueInPort.new :get_value_handler => get_value_handler, :set_value_handler => set_value_handler
+    @port = SPNet::ParamInPort.new :get_value_handler => get_value_handler, :set_value_handler => set_value_handler
   end
 
   describe '#set_value' do

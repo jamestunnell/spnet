@@ -1,9 +1,13 @@
 module SPNet
+
+# Represents a Network object using only serializeable objects.
+#
+# @author James Tunnell
 class NetworkState
   include Hashmake::HashMakeable
-  
+
+  # Define arg specs to use in processing hashed arguments during #initialize.  
   ARG_SPECS = {
-    :sample_rate => arg_spec(:reqd => true, :type => Float, :validator => ->(a){a > 0.0}),
     :name => arg_spec(:reqd => false, :type => String, :default => ""),
     :block_states => arg_spec_hash(:reqd => false, :type => BlockState),
     :link_states => arg_spec_array(:reqd => false, :type => LinkState),
@@ -11,13 +15,18 @@ class NetworkState
   
   attr_reader :sample_rate, :name, :block_models, :link_models
   
+  # A new instance of NetworkState. 
+  # @param [Hash] args Hashed arguments for initialization. See Network::ARG_SPECS
+  #                    for details of which keys are required.
   def initialize args = {}
     hash_make NetworkState::ARG_SPECS, args
   end
   
-  def make_network
-    #raise ArgumentError, "args does not have :sample_rate key" unless args.has_key?(:sample_rate)
-    #sample_rate = args[:sample_rate]
+  # Produce a Network object from the current NetworkState object.
+  # @param [Hash] args Hashed arguments. The only key required is :sample_rate.
+  def make_network args
+    raise ArgumentError, "args does not have :sample_rate key" unless args.has_key?(:sample_rate)
+    sample_rate = args[:sample_rate]
     
     blocks = {}
     @block_states.each do |block_name, block_state|
@@ -29,7 +38,7 @@ class NetworkState
       links.push link_state.make_link blocks
     end
     
-    Network.new :name => @name, :blocks => blocks, :links => links, :sample_rate => @sample_rate
+    Network.new :name => @name, :blocks => blocks, :links => links, :sample_rate => sample_rate
   end
 end
 end

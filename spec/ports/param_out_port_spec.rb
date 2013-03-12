@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe SPNet::ValueOutPort do
+describe SPNet::ParamOutPort do
   before :each do
     @value = 0
     
@@ -12,12 +12,12 @@ describe SPNet::ValueOutPort do
       return @value
     end
     
-    @out_port = SPNet::ValueOutPort.new
-    @in_port = SPNet::ValueInPort.new :get_value_handler => get_value_handler, :set_value_handler => set_value_handler
+    @out_port = SPNet::ParamOutPort.new
+    @in_port = SPNet::ParamInPort.new :get_value_handler => get_value_handler, :set_value_handler => set_value_handler
   end
 
   describe '#set_value' do
-    it 'should pass the given value through ValueInPort#set_value' do
+    it 'should pass the given value through ParamInPort#set_value' do
       @out_port.set_link Link.new(:to => @in_port, :from => @out_port)
       @out_port.set_value 5
       @value.should eq(5)
@@ -25,7 +25,7 @@ describe SPNet::ValueOutPort do
   end
   
   describe '#get_value' do
-    it "should return the value from each linked port's ValueInPort#get_value" do
+    it "should return the value from each linked port's ParamInPort#get_value" do
       @value = 7
       @out_port.set_link Link.new(:to => @in_port, :from => @out_port)
       @out_port.get_value.should eq(7)

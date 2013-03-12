@@ -29,4 +29,18 @@ describe SPNet::OutPort do
       out_port.link.should be_nil
     end
   end
+  
+  describe '#linked?' do
+    it 'should return false if port is not linked' do
+      out_port = OutPort.new(:matching_class => InPort)
+      out_port.linked?.should be_false
+    end
+    
+    it 'should return true if port is linked' do
+      in_port = InPort.new(:matching_class => OutPort)
+      out_port = OutPort.new(:matching_class => InPort)
+      Link.new(:from => out_port, :to => in_port).activate
+      out_port.linked?.should be_true
+    end
+  end
 end

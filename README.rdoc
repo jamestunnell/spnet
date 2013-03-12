@@ -1,8 +1,9 @@
 = spnet
 
 * {Homepage}[https://rubygems.org/gems/spnet]
+* {Source Code}[https://github.com/jamestunnell/spnet]
 * {Documentation}[http://rubydoc.info/gems/spnet/frames]
-* {Email}[mailto:jamestunnell at lavabit.com]
+* {Email}[mailto:jamestunnell@lavabit.com]
 
 == Description
 
@@ -12,9 +13,9 @@ Provide infrastructure for forming processing networks.
 
 Signal ports: Used to pass a stream of data through a block.
 
-Value ports: Used to get/set a value within a block (usually to control a parameter), with optional range limiting.
+Param ports: Used to get/set a value within a block (usually to control a parameter).
 
-Command ports: Used to trigger the execution a command within a block, with optional data as well.
+Command ports: Used to trigger the execution a command within a block, with optional data.
 
 == Examples
 
