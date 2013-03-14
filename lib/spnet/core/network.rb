@@ -26,7 +26,7 @@ class Network
     # ensure that all sample rates match given rate
     @blocks.each do |block_name, block|
       if block.sample_rate != @sample_rate
-        block.sample_rate = @sample_rate
+        raise ArgumentError, "block sample rate #{block.sample_rate} does not match network sample rate #{@sample_rate}"
       end
     end
     

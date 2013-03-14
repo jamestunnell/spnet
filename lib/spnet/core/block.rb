@@ -7,11 +7,11 @@ module SPNet
 class Block
   include Hashmake::HashMakeable
   
-  attr_reader :arg_specs, :sample_rate_port, :in_ports, :out_ports
+  attr_reader :in_ports, :out_ports, :sample_rate
   
   # Define ArgSpec's to use in processing hashed arguments during #initialize.
   ARG_SPECS = {
-    :sample_rate_port => arg_spec(:reqd => true, :type => ParamInPort),
+    :sample_rate => arg_spec(:reqd => true, :type => Numeric, :validator => ->(a){ a > 0 }),
     :algorithm => arg_spec(:reqd => true, :type => Proc, :validator => ->(p){ p.arity == 1 }),
     :in_ports => arg_spec_hash(:reqd => false, :type => InPort),
     :out_ports => arg_spec_hash(:reqd => false, :type => OutPort),
@@ -22,18 +22,6 @@ class Block
   #                    for details of which keys are required.
   def initialize args = {}
     hash_make Block::ARG_SPECS, args
-  end
-  
-  # Get the sample rate using the sample rate port.
-  def sample_rate
-    @sample_rate_port.get_value
-  end
-  
-  # Set the sample rate using the sample rate port.
-  # @raise [ArgumentError] if sample rate is not > 0.0.
-  def sample_rate= sample_rate
-    raise ArgumentError, "sample_rate is not > 0.0" unless sample_rate > 0.0
-    @sample_rate_port.set_value sample_rate
   end
   
   # Execute the block algorithm.

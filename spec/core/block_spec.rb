@@ -3,13 +3,12 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe SPNet::Block do
   before :all do
     @sample_rate = 1.0
-    @sample_rate_port = ParamInPort.new(:get_value_handler => ->(){@sample_rate}, :set_value_handler => ->(a){@sample_rate = a})
   end
   
   context '.new' do
     context 'no I/O ports given' do
       before :all do
-        @block = SPNet::Block.new :sample_rate_port => @sample_rate_port, :algorithm => ->(a){}
+        @block = SPNet::Block.new :sample_rate => @sample_rate, :algorithm => ->(a){}
       end
       
       it 'should have no input ports' do
@@ -24,7 +23,7 @@ describe SPNet::Block do
     context '1 in and 1 out port given' do
       before :all do
         @block = SPNet::Block.new(
-          :sample_rate_port => @sample_rate_port, :algorithm => ->(a){},
+          :sample_rate => @sample_rate, :algorithm => ->(a){},
           :in_ports => { "IN" => SPNet::SignalInPort.new }, :out_ports => { "OUT" => SPNet::SignalOutPort.new },
         )
       end
@@ -42,23 +41,15 @@ describe SPNet::Block do
   end
 
   context '#sample_rate' do
-    it 'should use the sample_rate port to get the sample rate' do
-      block = TestBlock.new :sample_rate => 2
-      block.sample_rate.should eq(2)
+    it 'should return the given sample_rate' do
+      block = TestBlock.new :sample_rate => @sample_rate
+      block.sample_rate.should eq(@sample_rate)
     end
   end
-  
-  context '#sample_rate' do
-    it 'should use the sample_rate port to set the sample rate' do
-      block = TestBlock.new :sample_rate => 2
-      block.sample_rate = 3
-      block.sample_rate.should eq(3)
-    end
-  end
-  
+    
   context '#step' do
     it 'should exercise the given algorithm, passing the count' do
-      block = TestBlock.new :sample_rate => 2
+      block = TestBlock.new :sample_rate => @sample_rate
       collector = SignalInPort.new
       link = Link.new(:from => block.out_ports["OUT"], :to => collector)
       link.activate
@@ -72,7 +63,7 @@ describe SPNet::Block do
   
   context '#export_state' do
     before :all do
-      block = TestBlock.new :sample_rate => 2
+      block = TestBlock.new :sample_rate => @sample_rate
       block.in_ports["VALUE1"].set_value(4.4)
       block.in_ports["VALUE2"].set_value(5.5)
       @state = block.export_state
