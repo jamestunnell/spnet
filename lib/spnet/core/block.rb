@@ -11,7 +11,6 @@ class Block
   
   # Define ArgSpec's to use in processing hashed arguments during #initialize.
   ARG_SPECS = {
-    :arg_specs => arg_spec_hash(:reqd => true, :type => Hashmake::ArgSpec),
     :sample_rate_port => arg_spec(:reqd => true, :type => ParamInPort),
     :algorithm => arg_spec(:reqd => true, :type => Proc, :validator => ->(p){ p.arity == 1 }),
     :in_ports => arg_spec_hash(:reqd => false, :type => InPort),
@@ -23,12 +22,6 @@ class Block
   #                    for details of which keys are required.
   def initialize args = {}
     hash_make Block::ARG_SPECS, args
-    
-    @arg_specs.each do |key, arg_spec|
-      unless self.methods.include?(key) || self.instance_variables.include?(("@" + key.to_s).to_sym)
-        raise ArgumentError, "self does not have method or instance variable #{key}"
-      end
-    end
   end
   
   # Get the sample rate using the sample rate port.
@@ -52,15 +45,6 @@ class Block
   # Produces a BlockState object based on this Block object.
   # @return [BlockState]
   def export_state
-    args = {}
-    @arg_specs.each do |key, arg_spec|
-      if self.methods.include?(key)
-        args[key] = self.send(key)
-      else
-        args[key] = self.instance_variable_get(("@" + key.to_s).to_sym)
-      end
-    end
-    
     port_params = {}
     @in_ports.each do |name, port|
       if port.is_a?(ParamInPort)
@@ -68,7 +52,7 @@ class Block
       end
     end
     
-    BlockState.new(:class_sym => self.class.to_s.to_sym, :hashed_args => args, :port_params => port_params)
+    BlockState.new(:class_sym => self.class.to_s.to_sym, :port_params => port_params)
   end
 end
 end

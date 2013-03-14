@@ -21,8 +21,8 @@ describe SPNet::Network do
     end
     
     it 'should activate links' do
-      a = TestBlock.new
-      b = TestBlock.new
+      a = TestBlock.new(:sample_rate => 2)
+      b = TestBlock.new(:sample_rate => 2)
       link = Link.new(:from => a.out_ports["OUT"], :to => b.in_ports["IN"])
       network = Network.new(
         :sample_rate => 1.0,

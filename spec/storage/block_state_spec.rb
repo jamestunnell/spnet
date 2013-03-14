@@ -50,7 +50,7 @@ describe SPNet::BlockState do
       }
       @class_sym = :BlockStateTestBlock
       block_state = BlockState.new :class_sym => @class_sym, :hashed_args => {}, :port_params => @params
-      @block = block_state.make_block
+      @block = block_state.make_block :sample_rate => 2
     end
     
     it 'should make a block of the given class type' do

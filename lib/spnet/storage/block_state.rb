@@ -9,7 +9,6 @@ class BlockState
   # Define arg specs to use in processing hashed arguments during #initialize.  
   ARG_SPECS = {
     :class_sym => arg_spec(:reqd => true, :type => Symbol),
-    :hashed_args => arg_spec(:reqd => true, :type => Hash),
     :port_params => arg_spec_hash(:reqd => false, :type => Object)
   }
   
@@ -23,9 +22,11 @@ class BlockState
   end
   
   # Produce a Block object from the current BlockState object.
-  def make_block
+  def make_block args
+    raise ArgumentError, "args does not have :sample_rate key" unless args.has_key?(:sample_rate)
+    
     klass = Kernel.const_get(@class_sym)
-    block = klass.new @hashed_args
+    block = klass.new :sample_rate => args[:sample_rate]
     
     @port_params.each do |port_name,value|
       if block.in_ports.has_key?(port_name)

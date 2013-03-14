@@ -78,8 +78,8 @@ describe SPNet::Link do
   context '#export_state' do
     before :all do
       blocks = {
-        "A" => TestBlock.new,
-        "B" => TestBlock.new,
+        "A" => TestBlock.new(:sample_rate => 2),
+        "B" => TestBlock.new(:sample_rate => 2),
       }
       link = Link.new(:from => blocks["A"].out_ports["OUT"], :to => blocks["B"].in_ports["IN"])
       link.activate

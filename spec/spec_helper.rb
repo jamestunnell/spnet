@@ -4,22 +4,15 @@ require 'spnet'
 include SPNet
 
 class TestBlock < Block
-  include Hashmake::HashMakeable
+  attr_reader :value1, :value2
   
-  NAME_DEFAULT = ""
-  VALUE_DEFAULT = 4
-  
-  ARG_SPECS = {
-    :name => arg_spec(:reqd => false, :type => String, :default => NAME_DEFAULT),
-    :value => arg_spec(:reqd => false, :type => Numeric, :default => VALUE_DEFAULT),
-    :sample_rate => arg_spec(:reqd => false, :type => Fixnum, :default => 1)
-  }
-  
-  attr_reader :value, :name
-  
-  def initialize args = {}
-    hash_make TestBlock::ARG_SPECS, args
+  def initialize args
+    raise ArgumentError, "args does not have :sample_rate key" unless args.has_key?(:sample_rate)
+    raise ArgumentError, "sample_rate is not > 0.0" unless args[:sample_rate] > 0.0
     
+    @sample_rate = args[:sample_rate]
+    @value1 = 1
+    @value2 = 2
     @command_history = []
     
     sample_rate_port = ParamInPort.new(
@@ -30,9 +23,14 @@ class TestBlock < Block
     input = SignalInPort.new
     output = SignalOutPort.new
 
-    value = ParamInPort.new(
-      :get_value_handler => ->(){ @value },
-      :set_value_handler => ->(a){ @value = a},
+    value1 = ParamInPort.new(
+      :get_value_handler => ->(){ @value1 },
+      :set_value_handler => ->(a){ @value1 = a},
+    )
+
+    value2 = ParamInPort.new(
+      :get_value_handler => ->(){ @value2 },
+      :set_value_handler => ->(a){ @value2 = a},
     )
     
     command = CommandInPort.new(
@@ -47,10 +45,9 @@ class TestBlock < Block
     end
     
     super(
-      :arg_specs => TestBlock::ARG_SPECS,
       :sample_rate_port => sample_rate_port,
       :algorithm => pass_through,
-      :in_ports => { "IN" => input, "VALUE" => value, "COMMAND" => command },
+      :in_ports => { "IN" => input, "VALUE1" => value1, "VALUE2" => value2, "COMMAND" => command },
       :out_ports => { "OUT" => output }
     )
   end

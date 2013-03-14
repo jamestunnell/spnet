@@ -9,7 +9,7 @@ class CommandInPort < InPort
 
   # Define arg specs to use in processing hashed arguments during #initialize.
   ARG_SPECS = {
-    :command_map => arg_spec_hash(:reqd => true, :type => Proc),
+    :command_map => arg_spec_hash(:reqd => true, :type => Proc, :validator => ->(a){a.arity == 1}),
   }
 
   # A new instance of CommandInPort.

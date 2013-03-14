@@ -14,8 +14,8 @@ describe SPNet::LinkState do
   describe '#make_link' do
     it 'should make a Link object, given good blocks' do
       blocks = {
-        "block_A" => TestBlock.new,
-        "block_B" => TestBlock.new,
+        "block_A" => TestBlock.new(:sample_rate => 2),
+        "block_B" => TestBlock.new(:sample_rate => 2),
       }
       output = PortLocater.new :block_name => "block_A", :port_name => "OUT"
       input = PortLocater.new :block_name => "block_B", :port_name => "IN"

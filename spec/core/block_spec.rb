@@ -9,7 +9,7 @@ describe SPNet::Block do
   context '.new' do
     context 'no I/O ports given' do
       before :all do
-        @block = SPNet::Block.new :arg_specs => {}, :sample_rate_port => @sample_rate_port, :algorithm => ->(a){}
+        @block = SPNet::Block.new :sample_rate_port => @sample_rate_port, :algorithm => ->(a){}
       end
       
       it 'should have no input ports' do
@@ -24,7 +24,7 @@ describe SPNet::Block do
     context '1 in and 1 out port given' do
       before :all do
         @block = SPNet::Block.new(
-          :arg_specs => {}, :sample_rate_port => @sample_rate_port, :algorithm => ->(a){},
+          :sample_rate_port => @sample_rate_port, :algorithm => ->(a){},
           :in_ports => { "IN" => SPNet::SignalInPort.new }, :out_ports => { "OUT" => SPNet::SignalOutPort.new },
         )
       end
@@ -58,7 +58,7 @@ describe SPNet::Block do
   
   context '#step' do
     it 'should exercise the given algorithm, passing the count' do
-      block = TestBlock.new
+      block = TestBlock.new :sample_rate => 2
       collector = SignalInPort.new
       link = Link.new(:from => block.out_ports["OUT"], :to => collector)
       link.activate
@@ -71,36 +71,19 @@ describe SPNet::Block do
   end
   
   context '#export_state' do
-    context 'no arg specs given' do
-      before :all do
-        @block = SPNet::Block.new(
-          :arg_specs => {}, :sample_rate_port => @sample_rate_port, :algorithm => ->(a){},
-          :in_ports => { "IN" => SPNet::SignalInPort.new }, :out_ports => { "OUT" => SPNet::SignalOutPort.new },
-        )
-        @block.export_state.hashed_args.should be_empty
-      end
-      
-      it 'should produce empty args' do
-        @block.export_state.hashed_args.should be_empty
-      end
+    before :all do
+      block = TestBlock.new :sample_rate => 2
+      block.in_ports["VALUE1"].set_value(4.4)
+      block.in_ports["VALUE2"].set_value(5.5)
+      @state = block.export_state
     end
-    
-    context 'arg specs given' do
-      context 'no args given' do
-        it 'should use defaults' do
-          state = TestBlock.new.export_state
-          state.hashed_args[:name].should eq(TestBlock::NAME_DEFAULT)
-          state.hashed_args[:value].should eq(TestBlock::VALUE_DEFAULT)
-        end
-      end
 
-      context 'args given' do
-        it 'should use given values' do
-          state = TestBlock.new(:name => "NOPE", :value => 25).export_state
-          state.hashed_args[:name].should eq("NOPE")
-          state.hashed_args[:value].should eq(25)          
-        end
-      end
+    it 'should set class_sym to :Block' do
+      @state.class_sym.should eq(:TestBlock)
+    end
+
+    it 'should set port_params according to ParamInPort settings' do
+      @state.port_params.should eq("VALUE1" => 4.4, "VALUE2" => 5.5)
     end
   end
 end

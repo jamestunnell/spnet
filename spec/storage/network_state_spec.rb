@@ -5,8 +5,8 @@ describe SPNet::NetworkState do
     before :all do
       @network_state = NetworkState.new(
         :block_states => {
-          "A" => BlockState.new(:class_sym => :TestBlock, :hashed_args => {}, :port_params => { "VALUE" => 0.2}),
-          "B" => BlockState.new(:class_sym => :TestBlock, :hashed_args => {}, :port_params => { "VALUE" => 0.4})
+          "A" => BlockState.new(:class_sym => :TestBlock, :hashed_args => {}, :port_params => { "VALUE1" => 0.2}),
+          "B" => BlockState.new(:class_sym => :TestBlock, :hashed_args => {}, :port_params => { "VALUE1" => 0.4})
         },
         :link_states => [
           LinkState.new(
@@ -27,8 +27,8 @@ describe SPNet::NetworkState do
     
     it 'should assign values found in :port_params' do
       network = @network_state.make_network :sample_rate => 4
-      network.blocks["A"].value.should eq(0.2)
-      network.blocks["B"].value.should eq(0.4)
+      network.blocks["A"].value1.should eq(0.2)
+      network.blocks["B"].value1.should eq(0.4)
     end
 
     it 'should create links from :link_states' do

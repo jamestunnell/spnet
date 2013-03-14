@@ -30,7 +30,7 @@ class NetworkState
     
     blocks = {}
     @block_states.each do |block_name, block_state|
-      blocks[block_name] = block_state.make_block
+      blocks[block_name] = block_state.make_block :sample_rate => sample_rate
     end
     
     links = []
