@@ -9,20 +9,28 @@ class ParamInPort < InPort
 
   # Define arg specs to use in processing hashed arguments during #initialize.
   ARG_SPECS = {
+    :limiter => arg_spec(:reqd => false, :type => Limiter, :default => ->(){ NoLimiter.new } ),
     :get_value_handler => arg_spec(:reqd => true, :type => Proc, :validator => ->(p){ p.arity == 0 }),
     :set_value_handler => arg_spec(:reqd => true, :type => Proc, :validator => ->(p){ p.arity == 1 })
   }
 
+  attr_reader :limiter
+  
   # A new instance of ParamInPort.
   # @param [Hash] hashed_args Hashed arguments for initialization. See Network::ARG_SPECS
   #                    for details.
   def initialize hashed_args = {}
     hash_make ParamInPort::ARG_SPECS, hashed_args
+    @skip_limiting = @limiter.is_a?(NoLimiter)
+    
     super(:matching_class => ParamOutPort)
   end
   
   # Set the parameter to the given value.
   def set_value value
+    unless @skip_limiting
+      value = @limiter.limit_value value, get_value
+    end
     @set_value_handler.call value
   end
   

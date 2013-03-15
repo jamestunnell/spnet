@@ -9,15 +9,12 @@ class SignalInPort < InPort
 
   include Hashmake::HashMakeable
   
-  # The default Range value given to @limits.
-  DEFAULT_LIMITS = (-Float::MAX..Float::MAX)
-
   # Define arg specs to use in processing hashed arguments during #initialize.  
   ARG_SPECS = {
-    :limits => arg_spec(:reqd => false, :type => Range, :default => DEFAULT_LIMITS)
+    :limiter => arg_spec(:reqd => false, :type => Limiter, :default => ->(){ NoLimiter.new }, :validator => ->(a){ !a.is_a?(EnumLimiter) }),
   }
   
-  attr_reader :limits, :queue
+  attr_reader :limiter, :queue
 
   # A new instance of SignalInPort.
   # @param [Hash] hashed_args Hashed arguments for initialization. See Network::ARG_SPECS
@@ -26,8 +23,7 @@ class SignalInPort < InPort
     hash_make SignalInPort::ARG_SPECS, hashed_args
     
     @queue = []
-    @skip_limiting = (@limits == DEFAULT_LIMITS)
-    @limiter = SPCore::Limiters.make_range_limiter @limits
+    @skip_limiting = @limiter.is_a?(NoLimiter)
 
     super(:matching_class => SignalOutPort)
   end
@@ -36,7 +32,7 @@ class SignalInPort < InPort
   def enqueue_values values
     unless @skip_limiting
       for i in 0...values.count
-        values[i] = @limiter.call(values[i])
+        values[i] = @limiter.limit_value values[i]
       end
     end
     

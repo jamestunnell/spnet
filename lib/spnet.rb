@@ -4,6 +4,13 @@ require 'spnet/version'
 
 require 'spnet/core/in_port'
 require 'spnet/core/out_port'
+require 'spnet/core/limiter'
+
+require 'spnet/limiters/no_limiter'
+require 'spnet/limiters/lower_limiter'
+require 'spnet/limiters/upper_limiter'
+require 'spnet/limiters/range_limiter'
+require 'spnet/limiters/enum_limiter'
 
 require 'spnet/ports/signal_in_port'
 require 'spnet/ports/signal_out_port'
