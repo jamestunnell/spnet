@@ -1,5 +1,3 @@
-require 'spcore'
-
 module SPNet
 
 # Recieves signal input for processing in a Block object.
