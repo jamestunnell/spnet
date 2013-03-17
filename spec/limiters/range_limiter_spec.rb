@@ -125,4 +125,26 @@ describe SPNet::RangeLimiter do
       end
     end
   end
+  
+  describe '::make_range_limiter' do
+    it 'should produce equivalent limiter' do
+      [0..5, -2.2..5.6, -1000..2000].each do |range|
+        [true,true,false,false].each do |include_start|
+          [true,false,true,false].each do |include_end|
+            
+            start_bracket = include_start ? "[" : "("
+            end_bracket = include_end ? "]" : ")"
+            
+            limiter = make_range_limiter("#{start_bracket} #{range.first}, #{range.last} #{end_bracket}")
+            limiter2 = RangeLimiter.new(Limit.new(range.first,include_start), Limit.new(range.last, include_end))
+            
+            limiter.lower_limiter.limit.value.should eq(limiter2.lower_limiter.limit.value)
+            limiter.lower_limiter.limit.inclusive.should eq(limiter2.lower_limiter.limit.inclusive)
+            limiter.upper_limiter.limit.value.should eq(limiter2.upper_limiter.limit.value)
+            limiter.upper_limiter.limit.inclusive.should eq(limiter2.upper_limiter.limit.inclusive)
+          end
+        end
+      end
+    end
+  end
 end

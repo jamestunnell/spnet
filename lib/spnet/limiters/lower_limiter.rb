@@ -3,6 +3,8 @@ module SPNet
 #
 # @author James Tunnell
 class LowerLimiter < Limiter
+  attr_reader :limit
+  
   def initialize limit
     raise ArgumentError, "limit is not a Limit" unless limit.is_a?(Limit)
     @limit = limit
