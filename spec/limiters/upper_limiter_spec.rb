@@ -50,4 +50,20 @@ describe SPNet::UpperLimiter do
       end
     end
   end
+
+  describe '::make_upper_limiter' do
+    it 'should produce equivalent limiter' do
+      [0, -2.2, 5.6, -1000, 2000].each do |value|
+        [true,false].each do |inclusive|            
+          bracket = inclusive ? "]" : ")"
+          
+          limiter = make_upper_limiter("#{value} #{bracket}")
+          limiter2 = UpperLimiter.new(Limit.new(value,inclusive))
+          
+          limiter.limit.value.should eq(limiter2.limit.value)
+          limiter.limit.inclusive.should eq(limiter2.limit.inclusive)
+        end
+      end
+    end
+  end
 end

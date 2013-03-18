@@ -50,4 +50,21 @@ describe SPNet::LowerLimiter do
       end
     end
   end
+
+  describe '::make_lower_limiter' do
+    it 'should produce equivalent limiter' do
+      [0, -2.2, 5.6, -1000, 2000].each do |value|
+        [true,false].each do |inclusive|            
+          bracket = inclusive ? "[" : "("
+          
+          limiter = make_lower_limiter("#{bracket} #{value}")
+          limiter2 = LowerLimiter.new(Limit.new(value,inclusive))
+          
+          limiter.limit.value.should eq(limiter2.limit.value)
+          limiter.limit.inclusive.should eq(limiter2.limit.inclusive)
+        end
+      end
+    end
+  end
+
 end

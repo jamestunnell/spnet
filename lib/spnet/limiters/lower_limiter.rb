@@ -27,4 +27,27 @@ class LowerLimiter < Limiter
     end
   end
 end
+
+# Produce a LowerLimiter object, based on a specification string.
+# @param [String] string The specification string, which should be of the format
+#                        "[a" or "(a", where a is a number. Square bracket
+#                        indicates an inclusive limit, and parenthesis indicates
+#                        exclusive.
+def make_lower_limiter string
+  string = string.gsub(/\s*/, '')
+  
+  if string[0] == '['
+    inclusive = true
+  elsif string[0] == '('
+    inclusive = false
+  else
+    raise ArgumentError, "string does not have '[' or '(' at beginning"
+  end
+  
+  string[0] = ''
+  
+  limit = Limit.new(string.to_f, inclusive)
+  return LowerLimiter.new(limit)
+end
+
 end
