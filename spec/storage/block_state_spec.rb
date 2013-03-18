@@ -12,8 +12,8 @@ describe SPNet::BlockState do
         "VALUE1" => 0.0,
         "VALUE2" => 1.0,
       }
-      block_state = BlockState.new :class_sym => :TestBlock, :port_params => params
-      block_state.port_params.should eq(params)
+      block_state = BlockState.new :class_sym => :TestBlock, :params => params
+      block_state.params.should eq(params)
     end
   end
   
@@ -24,7 +24,7 @@ describe SPNet::BlockState do
         "VALUE2" => 0.9,
       }
       @class_sym = :TestBlock
-      block_state = BlockState.new :class_sym => @class_sym, :port_params => @params
+      block_state = BlockState.new :class_sym => @class_sym, :params => @params
       @block = block_state.make_block :sample_rate => 2
     end
     

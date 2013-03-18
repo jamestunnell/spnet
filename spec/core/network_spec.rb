@@ -6,13 +6,9 @@ describe SPNet::Network do
       @sample_rate =  1.0
     end
     
-    context 'no name, blocks, or links given' do
+    context 'no blocks, or links given' do
       before :all do
         @network = Network.new :sample_rate => @sample_rate
-      end
-      
-      it 'should have empty name' do
-        @network.name.should be_empty
       end
       
       it 'should have no blocks' do

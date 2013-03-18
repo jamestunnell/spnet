@@ -23,3 +23,10 @@ In Block, contain all InPort objects in @in_ports, and all OutPort objects in @o
 === 0.1.4 / 2013-02-06
 
 CommandInPort only requires :command_map instead of :list_commands_handler and :exec_command_handler. The command map is just a hash that maps command names to their execution handlers.
+
+=== 0.1.5 / 2013-02-18
+
+
+
+=== 0.1.6 / 2013-02-18
+

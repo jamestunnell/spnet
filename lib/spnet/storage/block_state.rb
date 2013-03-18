@@ -9,10 +9,10 @@ class BlockState
   # Define arg specs to use in processing hashed arguments during #initialize.  
   ARG_SPECS = {
     :class_sym => arg_spec(:reqd => true, :type => Symbol),
-    :port_params => arg_spec_hash(:reqd => false, :type => Object)
+    :params => arg_spec_hash(:reqd => false, :type => Object)
   }
   
-  attr_reader :class_sym, :hashed_args, :port_params
+  attr_reader :class_sym, :hashed_args, :params
   
   # A new instance of NetworkState. 
   # @param [Hash] args Hashed arguments for initialization. See Network::ARG_SPECS
@@ -28,7 +28,7 @@ class BlockState
     klass = Kernel.const_get(@class_sym)
     block = klass.new :sample_rate => args[:sample_rate]
     
-    @port_params.each do |port_name,value|
+    @params.each do |port_name,value|
       if block.in_ports.has_key?(port_name)
         port = block.in_ports[port_name]
         port.set_value value

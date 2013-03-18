@@ -62,19 +62,31 @@ describe SPNet::Block do
   end
   
   context '#export_state' do
-    before :all do
-      block = TestBlock.new :sample_rate => @sample_rate
-      block.in_ports["VALUE1"].set_value(4.4)
-      block.in_ports["VALUE2"].set_value(5.5)
-      @state = block.export_state
-    end
-
     it 'should set class_sym to :Block' do
-      @state.class_sym.should eq(:TestBlock)
+      TestBlock.new(:sample_rate => @sample_rate).export_state.class_sym.should eq(:TestBlock)
     end
 
-    it 'should set port_params according to ParamInPort settings' do
-      @state.port_params.should eq("VALUE1" => 4.4, "VALUE2" => 5.5)
+    it 'should have empty port params since no params were modified' do
+      TestBlock.new(:sample_rate => @sample_rate).export_state.params.should be_empty
+    end
+
+    context 'one param modified' do
+      it 'should set params according to ParamInPort settings' do
+        block = TestBlock.new :sample_rate => @sample_rate
+        block.in_ports["VALUE1"].set_value(4.4)
+        state = block.export_state
+        state.params.should eq("VALUE1" => 4.4)
+      end
+    end
+    
+    context 'both params modified' do
+      it 'should set params according to ParamInPort settings' do
+        block = TestBlock.new :sample_rate => @sample_rate
+        block.in_ports["VALUE1"].set_value(4.4)
+        block.in_ports["VALUE2"].set_value(5.5)
+        state = block.export_state
+        state.params.should eq("VALUE1" => 4.4, "VALUE2" => 5.5)
+      end
     end
   end
 end

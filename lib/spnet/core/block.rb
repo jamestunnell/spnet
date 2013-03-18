@@ -22,6 +22,7 @@ class Block
   #                    for details of which keys are required.
   def initialize args = {}
     hash_make Block::ARG_SPECS, args
+    @initial_params = collect_params
   end
   
   # Execute the block algorithm.
@@ -33,14 +34,30 @@ class Block
   # Produces a BlockState object based on this Block object.
   # @return [BlockState]
   def export_state
-    port_params = {}
-    @in_ports.each do |name, port|
-      if port.is_a?(ParamInPort)
-        port_params[name] = port.get_value
+    params = collect_params
+    
+    # discard the params that are the same as the initial port params
+    params.keys.each do |key|
+      if params[key] == @initial_params[key]
+        params.delete key
       end
     end
     
-    BlockState.new(:class_sym => self.class.to_s.to_sym, :port_params => port_params)
+    BlockState.new(:class_sym => self.class.to_s.to_sym, :params => params)
+  end
+
+  private
+  
+  def collect_params
+    params = {}
+    
+    @in_ports.each do |name, port|
+      if port.is_a?(ParamInPort)
+        params[name] = port.get_value
+      end
+    end
+    
+    return params
   end
 end
 end

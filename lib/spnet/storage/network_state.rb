@@ -8,12 +8,11 @@ class NetworkState
 
   # Define arg specs to use in processing hashed arguments during #initialize.  
   ARG_SPECS = {
-    :name => arg_spec(:reqd => false, :type => String, :default => ""),
     :block_states => arg_spec_hash(:reqd => false, :type => BlockState),
     :link_states => arg_spec_array(:reqd => false, :type => LinkState),
   }
   
-  attr_reader :sample_rate, :name, :block_models, :link_models
+  attr_reader :sample_rate, :block_models, :link_models
   
   # A new instance of NetworkState. 
   # @param [Hash] args Hashed arguments for initialization. See Network::ARG_SPECS
@@ -38,7 +37,7 @@ class NetworkState
       links.push link_state.make_link blocks
     end
     
-    Network.new :name => @name, :blocks => blocks, :links => links, :sample_rate => sample_rate
+    Network.new :blocks => blocks, :links => links, :sample_rate => sample_rate
   end
 end
 end
