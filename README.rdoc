@@ -17,6 +17,8 @@ Param ports: Used to get/set a value within a block (usually to control a parame
 
 Command ports: Used to trigger the execution a command within a block, with optional data.
 
+Limiters: Control the limits on values that can be sent into signal or param ports.
+
 == Examples
 
   require 'spnet'
