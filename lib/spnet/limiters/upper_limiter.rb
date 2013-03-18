@@ -3,7 +3,7 @@ module SPNet
 #
 # @author James Tunnell
 class UpperLimiter < Limiter
-  attr_reader :value, :inclusive
+  attr_reader :limit, :inclusive
   
   def initialize limit, inclusive
     @limit = limit
