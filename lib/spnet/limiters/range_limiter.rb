@@ -5,9 +5,9 @@ module SPNet
 class RangeLimiter < Limiter
   attr_reader :lower_limiter, :upper_limiter
   
-  def initialize lower_value, lower_inclusive, upper_value, upper_inclusive
-    @lower_limiter = LowerLimiter.new(lower_value, lower_inclusive)
-    @upper_limiter = UpperLimiter.new(upper_value, upper_inclusive)
+  def initialize lower_limit, lower_inclusive, upper_limit, upper_inclusive
+    @lower_limiter = LowerLimiter.new(lower_limit, lower_inclusive)
+    @upper_limiter = UpperLimiter.new(upper_limit, upper_inclusive)
   end
 
   # Limit the given value to be between lower and upper limits. Ignores the current_value parameter.  

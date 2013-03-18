@@ -1,13 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe SPNet::RangeLimiter do
-  describe '.new' do
-    it 'should raise ArgumentError if non-Limit is given' do
-      lambda { EnumLimiter.new(4, Limit.new(5,true)) }.should raise_error(ArgumentError)
-      lambda { EnumLimiter.new(Limit.new(5,true), 6) }.should raise_error(ArgumentError)
-    end
-  end
-  
   describe '.limit_value' do
     context 'non-inclusive lower limit, non-inclusive upper limit' do
       before :all do

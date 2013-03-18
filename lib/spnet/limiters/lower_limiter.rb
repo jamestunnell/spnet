@@ -3,25 +3,26 @@ module SPNet
 #
 # @author James Tunnell
 class LowerLimiter < Limiter
-  attr_reader :limit
+  attr_reader :value, :inclusive
   
-  def initialize value, inclusive
-    @limit = Limit.new value, inclusive
+  def initialize limit, inclusive
+    @limit = limit
+    @inclusive = inclusive
   end
 
   # Limit the given value to be at or above @limit. Ignores the current_value parameter.
   def limit_value value, current_value = nil
-    if @limit.inclusive?
-      if value >= @limit.value
+    if inclusive
+      if value >= @limit
         return value
       else
-        return @limit.value
+        return @limit
       end
     else
-      if value > @limit.value
+      if value > @limit
         return value
       else
-        return @limit.value + Float::EPSILON
+        return @limit + Float::EPSILON
       end
     end
   end
