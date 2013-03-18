@@ -26,7 +26,14 @@ CommandInPort only requires :command_map instead of :list_commands_handler and :
 
 === 0.1.5 / 2013-02-18
 
-
+Update for use with hashmake-0.1.5 gem.
+Add storage classes: NetworkState, BlockState, LinkState, and PortLocater. These are for persisting a network without relying on non-SPNet objects, which may not be serializable.
+Add limiter classes: RangeLimiter, UpperLimiter, LowerLimiter, EnumLimiter, and NoLimiter. A given limiter object will be used in a ParamInPort to limit an incoming value. The default NoLimiter object does nothing.
+Remove @sample_rate_port from Block class. This means blocks can't change sample rate after initialization.
+Every block is given just one parameter: a Hash containing the :sample_rate key. Block instances expect to recieve this key in #initialize.
 
 === 0.1.6 / 2013-02-18
 
+Change port_params to params.
+Only export params that have changed from initialization.
+Remove @name from Network class.
