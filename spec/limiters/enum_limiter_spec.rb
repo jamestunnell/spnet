@@ -7,12 +7,12 @@ describe SPNet::EnumLimiter do
     end
   end
   
-  describe '.limit_value' do
+  describe '.apply_limit' do
     it 'should return the given value if it is contained in @values' do
       values = [1,3,5,7]
       limiter = EnumLimiter.new values
       values.each do |value|
-        limiter.limit_value(value, 0).should eq(value)
+        limiter.apply_limit(value, 0).should eq(value)
       end
     end
     
@@ -21,7 +21,7 @@ describe SPNet::EnumLimiter do
       non_values = [2,4,6,8]
       limiter = EnumLimiter.new values
       non_values.each do |value|
-        limiter.limit_value(value, 0).should eq(0)
+        limiter.apply_limit(value, 0).should eq(0)
       end
     end
   end

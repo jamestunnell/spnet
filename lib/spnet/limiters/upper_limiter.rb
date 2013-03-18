@@ -11,7 +11,7 @@ class UpperLimiter < Limiter
   end
 
   # Limit the given value to be at or below @limit. Ignores the current_value parameter.
-  def limit_value value, current_value = nil
+  def apply_limit value, current_value = nil
     if inclusive
       if value <= @limit
         return value

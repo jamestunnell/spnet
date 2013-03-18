@@ -12,7 +12,7 @@ class EnumLimiter < Limiter
   
   # Limit the given value to those given by @values. If the given value is not
   # found, return the current value.
-  def limit_value value, current_value
+  def apply_limit value, current_value
     if @values.include? value
       return value
     else

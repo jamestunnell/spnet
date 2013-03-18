@@ -30,7 +30,7 @@ class SignalInPort < InPort
   def enqueue_values values
     unless @skip_limiting
       for i in 0...values.count
-        values[i] = @limiter.limit_value values[i]
+        values[i] = @limiter.apply_limit values[i]
       end
     end
     

@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe SPNet::UpperLimiter do  
-  describe '.limit_value' do
+  describe '.apply_limit' do
     context 'non-inclusive' do
       before :all do
         @upper = 1
@@ -10,13 +10,13 @@ describe SPNet::UpperLimiter do
 
       it 'should return the given value it it is below the upper limit' do
         ok_values = [@upper - Float::EPSILON, @upper / 2.0]
-        limited_values = ok_values.map { |value| @limiter.limit_value value }
+        limited_values = ok_values.map { |value| @limiter.apply_limit value }
         limited_values.should eq(ok_values)
       end
       
       it 'should return the upper limit + Float::EPSILON if the given value is at or below the upper limit' do
         bad_values = [@upper, @upper + Float::EPSILON, @upper * 2.0]
-        limited_values = bad_values.map { |value| @limiter.limit_value value }
+        limited_values = bad_values.map { |value| @limiter.apply_limit value }
         limited_values.each do |value|
           value.should eq(@upper - Float::EPSILON)
         end
@@ -31,13 +31,13 @@ describe SPNet::UpperLimiter do
 
       it 'should return the given value it it is at or below the upper limit' do
         ok_values = [@upper, @upper - Float::EPSILON, @upper / 2.0]
-        limited_values = ok_values.map { |value| @limiter.limit_value value }
+        limited_values = ok_values.map { |value| @limiter.apply_limit value }
         limited_values.should eq(ok_values)
       end
       
       it 'should return the upper limit if the given value is below the upper limit' do
         bad_values = [@upper + Float::EPSILON, @upper * 2.0]
-        limited_values = bad_values.map { |value| @limiter.limit_value value }
+        limited_values = bad_values.map { |value| @limiter.apply_limit value }
         limited_values.each do |value|
           value.should eq(@upper)
         end

@@ -5,7 +5,7 @@ describe SPNet::NoLimiter do
     it 'should always return the given value' do
       limiter = NoLimiter.new
       [-1, 1, Float::MAX, Float::MIN, "horse"].each do |value|
-        value.should eq(limiter.limit_value(value))
+        value.should eq(limiter.apply_limit(value))
       end
     end
   end

@@ -4,7 +4,7 @@ module SPNet
 # @author James Tunnell
 class NoLimiter < Limiter
   # Does not limit at all. Return the given value.
-  def limit_value value, current_value = nil
+  def apply_limit value, current_value = nil
     return value
   end
 end

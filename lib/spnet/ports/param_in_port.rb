@@ -29,7 +29,7 @@ class ParamInPort < InPort
   # Set the parameter to the given value.
   def set_value value
     unless @skip_limiting
-      value = @limiter.limit_value value, get_value
+      value = @limiter.apply_limit value, get_value
     end
     @set_value_handler.call value
   end

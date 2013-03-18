@@ -22,7 +22,7 @@ end
 #
 # @author James Tunnell
 class Limiter
-  def limit_value value, current_value
+  def apply_limit value, current_value
     raise NotImplementedError
   end
 end
