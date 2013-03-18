@@ -5,9 +5,9 @@ module SPNet
 class RangeLimiter < Limiter
   attr_reader :lower_limiter, :upper_limiter
   
-  def initialize left_limit, right_limit
-    @lower_limiter = LowerLimiter.new(left_limit)
-    @upper_limiter = UpperLimiter.new(right_limit)
+  def initialize lower_value, lower_inclusive, upper_value, upper_inclusive
+    @lower_limiter = LowerLimiter.new(lower_value, lower_inclusive)
+    @upper_limiter = UpperLimiter.new(upper_value, upper_inclusive)
   end
 
   # Limit the given value to be between lower and upper limits. Ignores the current_value parameter.  
@@ -19,46 +19,6 @@ class RangeLimiter < Limiter
     end
     return new_value
   end
-end
-
-# Produce a RangeLimiter object, based on a specification string.
-# @param [String] string The specification string, which should be of the format
-#                        "[a,b]" or "(a,b]" or "[a,b)" or "(a,b)". Square bracket
-#                        indicates an inclusive limit, and parenthesis indicates
-#                        exclusive.
-def make_range_limiter string
-  string = string.gsub(/\s*/, '')
-  
-  if string[0] == '['
-    lower_is_inclusive = true
-  elsif string[0] == '('
-    lower_is_inclusive = false
-  else
-    raise ArgumentError, "string does not have '[' or '(' at beginning"
-  end
-
-  if string[-1] == ']'
-    upper_is_inclusive = true
-  elsif string[-1] == ')'
-    upper_is_inclusive = false
-  else
-    raise ArgumentError, "string does not have ']' or ')' at end"
-  end
-  
-  string = string.gsub(/[\[\]\(\)]/,'')
-  
-  # make sure there is a separating comma
-  scan_result = string.scan(/\,/)
-  raise ArgumentError, "string has no comma" if scan_result.count == 0
-  raise ArgumentError, "string has multiple commas" if scan_result.count > 1
-  
-  comma_idx = string.index(',')
-  first = string[0...comma_idx]
-  second = string[comma_idx+1...string.size]
-  
-  lower = Limit.new(first.to_f, lower_is_inclusive)
-  upper = Limit.new(second.to_f, upper_is_inclusive)
-  return RangeLimiter.new(lower, upper)
 end
 
 end

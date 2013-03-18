@@ -12,7 +12,7 @@ describe SPNet::RangeLimiter do
     context 'non-inclusive lower limit, non-inclusive upper limit' do
       before :all do
         @lower, @upper = 1, 3
-        @limiter = RangeLimiter.new(Limit.new(@lower, false), Limit.new(@upper, false))
+        @limiter = RangeLimiter.new(@lower, false, @upper, false)
       end
 
       it 'should return the given value it it is above lower limit and below upper limit' do
@@ -41,7 +41,7 @@ describe SPNet::RangeLimiter do
     context 'inclusive lower limit, non-inclusive upper limit' do
       before :all do
         @lower, @upper = 1, 3
-        @limiter = RangeLimiter.new(Limit.new(@lower, true), Limit.new(@upper, false))
+        @limiter = RangeLimiter.new(@lower, true, @upper, false)
       end
 
       it 'should return the given value it it is at or above the lower limit and below the upper limit' do
@@ -70,7 +70,7 @@ describe SPNet::RangeLimiter do
     context 'non-inclusive lower limit, inclusive upper limit' do
       before :all do
         @lower, @upper = 1, 3
-        @limiter = RangeLimiter.new(Limit.new(@lower, false), Limit.new(@upper, true))
+        @limiter = RangeLimiter.new(@lower, false, @upper, true)
       end
 
       it 'should return the given value it it is above the lower limit and at or below the upper limit' do
@@ -99,7 +99,7 @@ describe SPNet::RangeLimiter do
     context 'inclusive lower limit, inclusive upper limit' do
       before :all do
         @lower, @upper = 1, 3
-        @limiter = RangeLimiter.new(Limit.new(@lower, true), Limit.new(@upper, true))
+        @limiter = RangeLimiter.new(@lower, true, @upper, true)
       end
 
       it 'should return the given value it it is at or above the lower limit and at or below the upper limit' do
@@ -121,28 +121,6 @@ describe SPNet::RangeLimiter do
         limited_values = bad_values.map { |value| @limiter.limit_value value }
         limited_values.each do |value|
           value.should eq(@upper)
-        end
-      end
-    end
-  end
-  
-  describe '::make_range_limiter' do
-    it 'should produce equivalent limiter' do
-      [0..5, -2.2..5.6, -1000..2000].each do |range|
-        [true,true,false,false].each do |include_start|
-          [true,false,true,false].each do |include_end|
-            
-            start_bracket = include_start ? "[" : "("
-            end_bracket = include_end ? "]" : ")"
-            
-            limiter = make_range_limiter("#{start_bracket} #{range.first}, #{range.last} #{end_bracket}")
-            limiter2 = RangeLimiter.new(Limit.new(range.first,include_start), Limit.new(range.last, include_end))
-            
-            limiter.lower_limiter.limit.value.should eq(limiter2.lower_limiter.limit.value)
-            limiter.lower_limiter.limit.inclusive.should eq(limiter2.lower_limiter.limit.inclusive)
-            limiter.upper_limiter.limit.value.should eq(limiter2.upper_limiter.limit.value)
-            limiter.upper_limiter.limit.inclusive.should eq(limiter2.upper_limiter.limit.inclusive)
-          end
         end
       end
     end

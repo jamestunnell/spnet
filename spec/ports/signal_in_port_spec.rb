@@ -18,7 +18,7 @@ describe SPNet::SignalInPort do
     end
   
     it 'should limit all values before queuing them' do
-      limiter = RangeLimiter.new(Limit.new(2.5, true), Limit.new(5.0, true))
+      limiter = RangeLimiter.new(2.5, true, 5.0, true)
       port = SPNet::SignalInPort.new(:limiter => limiter)
       port.enqueue_values([2.4, 2.6, 4.9, 5.1])
       port.queue.each do |value|

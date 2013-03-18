@@ -1,17 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe SPNet::LowerLimiter do
-  describe '.new' do
-    it 'should raise ArgumentError if non-Limit is given' do
-      lambda { LowerLimiter.new(5) }.should raise_error(ArgumentError)
-    end
-  end
-  
   describe '.limit_value' do
     context 'non-inclusive' do
       before :all do
         @lower = 1
-        @limiter = LowerLimiter.new(Limit.new(@lower, false))
+        @limiter = LowerLimiter.new(@lower, false)
       end
 
       it 'should return the given value it it is above lower limit' do
@@ -32,7 +26,7 @@ describe SPNet::LowerLimiter do
     context 'inclusive lower limit, non-inclusive upper limit' do
       before :all do
         @lower = 1
-        @limiter = LowerLimiter.new(Limit.new(@lower, true))
+        @limiter = LowerLimiter.new(@lower, true)
       end
 
       it 'should return the given value it it is at or above the lower limit' do
@@ -46,22 +40,6 @@ describe SPNet::LowerLimiter do
         limited_values = bad_values.map { |value| @limiter.limit_value value }
         limited_values.each do |value|
           value.should eq(@lower)
-        end
-      end
-    end
-  end
-
-  describe '::make_lower_limiter' do
-    it 'should produce equivalent limiter' do
-      [0, -2.2, 5.6, -1000, 2000].each do |value|
-        [true,false].each do |inclusive|            
-          bracket = inclusive ? "[" : "("
-          
-          limiter = make_lower_limiter("#{bracket} #{value}")
-          limiter2 = LowerLimiter.new(Limit.new(value,inclusive))
-          
-          limiter.limit.value.should eq(limiter2.limit.value)
-          limiter.limit.inclusive.should eq(limiter2.limit.inclusive)
         end
       end
     end
