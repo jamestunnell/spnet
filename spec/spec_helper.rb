@@ -34,7 +34,7 @@ class TestBlock < Block
     )
 
     pass_through = lambda do |count|
-      output.send_values input.dequeue_values(count)
+      output.enqueue_values input.dequeue_values(count)
     end
     
     super(

@@ -33,7 +33,7 @@ class Block
   
   # Produces a BlockState object based on this Block object.
   # @return [BlockState]
-  def export_state
+  def save_state
     params = collect_params
     
     # discard the params that are the same as the initial port params
@@ -46,6 +46,14 @@ class Block
     BlockState.new(:class_sym => self.class.to_s.to_sym, :params => params)
   end
 
+  def restore_state state
+    state.params.each do |port_name,value|
+      if @in_ports.has_key?(port_name)
+        @in_ports[port_name].set_value value
+      end
+    end
+  end
+  
   private
   
   def collect_params

@@ -8,7 +8,7 @@ describe SPNet::SignalInPort do
     end
   end
 
-  describe 'enqueue_values' do
+  describe '#enqueue_values' do
     it 'should add values to queue' do
       port = SPNet::SignalInPort.new
       values = [2.4, 2.6, 4.9, 5.1]
@@ -27,7 +27,7 @@ describe SPNet::SignalInPort do
     end
   end
 
-  describe 'dequeue_values' do
+  describe '#dequeue_values' do
     it 'should remove N values from queue' do
       port = SPNet::SignalInPort.new
       values = [2.4, 2.6, 4.9, 5.1]

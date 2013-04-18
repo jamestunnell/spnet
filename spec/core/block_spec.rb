@@ -61,20 +61,20 @@ describe SPNet::Block do
     end
   end
   
-  context '#export_state' do
+  context '#save_state' do
     it 'should set class_sym to :Block' do
-      TestBlock.new(:sample_rate => @sample_rate).export_state.class_sym.should eq(:TestBlock)
+      TestBlock.new(:sample_rate => @sample_rate).save_state.class_sym.should eq(:TestBlock)
     end
 
     it 'should have empty port params since no params were modified' do
-      TestBlock.new(:sample_rate => @sample_rate).export_state.params.should be_empty
+      TestBlock.new(:sample_rate => @sample_rate).save_state.params.should be_empty
     end
 
     context 'one param modified' do
       it 'should set params according to ParamInPort settings' do
         block = TestBlock.new :sample_rate => @sample_rate
         block.in_ports["VALUE1"].set_value(4.4)
-        state = block.export_state
+        state = block.save_state
         state.params.should eq("VALUE1" => 4.4)
       end
     end
@@ -84,7 +84,7 @@ describe SPNet::Block do
         block = TestBlock.new :sample_rate => @sample_rate
         block.in_ports["VALUE1"].set_value(4.4)
         block.in_ports["VALUE2"].set_value(5.5)
-        state = block.export_state
+        state = block.save_state
         state.params.should eq("VALUE1" => 4.4, "VALUE2" => 5.5)
       end
     end

@@ -43,7 +43,7 @@ class Link
   end
 
   # Produce a LinkState object from the current Link object.
-  def export_state blocks
+  def save_state blocks
     from, to = nil, nil
     
     blocks.each do |block_name, block|

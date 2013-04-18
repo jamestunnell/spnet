@@ -35,15 +35,15 @@ class Network
   end
   
   # Produce a NetworkState object from the current Network object.
-  def export_state
+  def save_state
     block_states = {}
     @blocks.each do |block_name, block|
-      block_states[block_name] = block.export_state
+      block_states[block_name] = block.save_state
     end
     
     link_states = []
     @links.each do |link|
-      link_states.push link.export_state(@blocks)
+      link_states.push link.save_state(@blocks)
     end
     
     return NetworkState.new(:block_states => block_states, :link_states => link_states)

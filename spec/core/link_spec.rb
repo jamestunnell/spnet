@@ -75,7 +75,7 @@ describe SPNet::Link do
     end
   end
   
-  context '#export_state' do
+  context '#save_state' do
     before :all do
       blocks = {
         "A" => TestBlock.new(:sample_rate => 2),
@@ -83,7 +83,7 @@ describe SPNet::Link do
       }
       link = Link.new(:from => blocks["A"].out_ports["OUT"], :to => blocks["B"].in_ports["IN"])
       link.activate
-      @state = link.export_state blocks
+      @state = link.save_state blocks
     end
     
     it 'should make a LinkState object' do
