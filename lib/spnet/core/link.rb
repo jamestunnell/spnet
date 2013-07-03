@@ -19,7 +19,7 @@ class Link
   # @param [Hash] args Hashed arguments for initialization. See Link::ARG_SPECS
   #                    for details of which keys are required.
   def initialize args = {}
-    hash_make Link::ARG_SPECS, args
+    hash_make args, Link::ARG_SPECS
     
     raise ArgumentError, "from port class #{@from.class} is not a #{@to.matching_class}" unless @from.is_a?(@to.matching_class)
     raise ArgumentError, "to port class #{@to.class} is not a #{@from.matching_class}" unless @to.is_a?(@from.matching_class)

@@ -21,7 +21,7 @@ class Block
   # @param [Hash] args Hashed arguments for initialization. See Block::ARG_SPECS
   #                    for details of which keys are required.
   def initialize args = {}
-    hash_make Block::ARG_SPECS, args
+    hash_make args, Block::ARG_SPECS
     @initial_params = collect_params
   end
   

@@ -20,7 +20,7 @@ class Network
   # @param [Hash] args Hashed arguments for initialization. See Network::ARG_SPECS
   #                    for details of which keys are required.
   def initialize args = {}
-    hash_make Network::ARG_SPECS, args
+    hash_make args, Network::ARG_SPECS
     
     # ensure that all sample rates match given rate
     @blocks.each do |block_name, block|

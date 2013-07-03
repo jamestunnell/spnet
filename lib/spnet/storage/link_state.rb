@@ -15,7 +15,7 @@ class LinkState
   attr_reader :from, :to
   
   def initialize args
-    hash_make ARG_SPECS, args
+    hash_make args, ARG_SPECS
   end
 
   # Make a Link objet from the current LinkState object.  

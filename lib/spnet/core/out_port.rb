@@ -17,7 +17,7 @@ class OutPort
   # @param [Hash] args Hashed arguments for initialization. See OutPort::ARG_SPECS
   #                    for details.  
   def initialize args
-    hash_make OutPort::ARG_SPECS, args
+    hash_make args, OutPort::ARG_SPECS
     @link = nil
   end
 

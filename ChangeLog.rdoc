@@ -37,3 +37,7 @@ Every block is given just one parameter: a Hash containing the :sample_rate key.
 Change port_params to params.
 Only export params that have changed from initialization.
 Remove @name from Network class.
+
+=== 0.1.8 / 2013-07-03
+
+Update for compatibility with hashmake-0.2.0.

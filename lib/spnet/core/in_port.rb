@@ -17,7 +17,7 @@ class InPort
   # @param [Hash] args Hashed arguments for initialization. See InPort::ARG_SPECS
   #                    for details.
   def initialize args
-    hash_make InPort::ARG_SPECS, args
+    hash_make args, InPort::ARG_SPECS
     @link = nil
   end
 

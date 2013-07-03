@@ -18,7 +18,7 @@ class NetworkState
   # @param [Hash] args Hashed arguments for initialization. See Network::ARG_SPECS
   #                    for details of which keys are required.
   def initialize args = {}
-    hash_make NetworkState::ARG_SPECS, args
+    hash_make args, NetworkState::ARG_SPECS
   end
   
   # Produce a Network object from the current NetworkState object.

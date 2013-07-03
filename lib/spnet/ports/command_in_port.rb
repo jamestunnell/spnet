@@ -16,7 +16,7 @@ class CommandInPort < InPort
   # @param [Hash] hashed_args Hashed arguments for initialization. See Network::ARG_SPECS
   #                    for details.
   def initialize hashed_args
-    hash_make CommandInPort::ARG_SPECS, hashed_args
+    hash_make hashed_args, CommandInPort::ARG_SPECS
     super(:matching_class => CommandOutPort)
   end
   

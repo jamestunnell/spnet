@@ -15,7 +15,7 @@ class PortLocater
   attr_reader :block_name, :port_name
   
   def initialize args
-    hash_make ARG_SPECS, args
+    hash_make args, ARG_SPECS
   end
 end
 end

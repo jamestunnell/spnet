@@ -18,7 +18,7 @@ class BlockState
   # @param [Hash] args Hashed arguments for initialization. See Network::ARG_SPECS
   #                    for details of which keys are required.
   def initialize args
-    hash_make BlockState::ARG_SPECS, args
+    hash_make args, BlockState::ARG_SPECS
   end
   
   # Produce a Block object from the current BlockState object.

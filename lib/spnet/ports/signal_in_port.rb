@@ -18,7 +18,7 @@ class SignalInPort < InPort
   # @param [Hash] hashed_args Hashed arguments for initialization. See Network::ARG_SPECS
   #                    for details.
   def initialize hashed_args = {}
-    hash_make SignalInPort::ARG_SPECS, hashed_args
+    hash_make hashed_args, SignalInPort::ARG_SPECS
     
     @queue = []
     @skip_limiting = @limiter.is_a?(NoLimiter)
